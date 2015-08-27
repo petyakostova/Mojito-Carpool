@@ -5,9 +5,9 @@ Teamwork in JavaScript Applications Course in Telerik Academy 2015-2016 Season.
 
 **Originally developed by contributors:**
 * Ilian Bratanov ([]())
-* Nikolay Karagyozov ([]())
+* Nikolay Karagyozov ([newmast](https://github.com/newmast))
 * Petya Kostova ([petyakostova](https://github.com/petyakostova))
-* Stefan Yovchev ([]())
+* Stefan Yovchev ([syovchev](https://github.com/syovchev))
 * Svetlozar Stoichkov ([]())
 
 **The Game is licensed under MIT License**
