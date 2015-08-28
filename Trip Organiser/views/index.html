@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Trip Organiser Test</title>
+	<link rel="stylesheet" href="../styles/2-frameworks/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../styles/2-frameworks/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="../styles/main.css">
+</head>
+
+<body>
+	<header class="header">
+		<hgroup class="header_heading">
+			<h1 class="header_heading_title">Carpool - Trip Organiser</h1>
+			<h2 class="header_heading_subtitle">Developed by Team Mojito</h2>
+		</hgroup>
+		<nav class="header_menu navbar navbar-default" role="navigation">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+				</div>
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="header_menu_list nav navbar-nav">
+						<li class="header_menu_list_item" id="home"><a href="#" class="header_menu_list_item_link">Home</a></li>
+						<li class="header_menu_list_item" id="find-trips"><a href="#" class="header_menu_list_item_link">Find trips</a></li>
+						<li class="header_menu_list_item" id="my-profile"><a href="#" class="header_menu_list_item_link">My profile</a></li>
+						<li class="header_menu_list_item" id="register"><a href="#" class="header_menu_list_item_link">Register</a></li>
+						<li class="header_menu_list_item" id="log-in"><a href="#" class="header_menu_list_item_link">Log in</a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<main class="container">
+		
+	</main>
+</body>
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="../assets/bower_components/everlive/min/everlive.all.min.js"></script>
+<script src="../assets/jspm_packages/system.js"></script>
+<script src="../assets/config.js"></script>
+<script>
+	System.config({
+		"transpiler" : "babel"
+	});
+	System.import("../controllers/app.js");
+
+</script>
+
+</html>
