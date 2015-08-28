@@ -1,8 +1,9 @@
 import 'jquery';
 
-var user = (function(){
-	function isValidName(value) {
-		return /^[A-Za-z]{2,20}$/g.test(value)
+var user = (function($){
+	
+	function isValidUsername(value) {
+		return /^[A-Za-z0-9]{4,30}$/g.test(value);
 	}
 	
 	function isValidPassword(value) {
@@ -13,19 +14,14 @@ var user = (function(){
 		return /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i.test(value);
 	}
 	
-	function isValidAge(value) {
-		return +(value) >= 18 && +(value) <= 122;
+	function isValidName(value) {
+		return /^[A-Za-z]{2,20}$/g.test(value)
 	}
 	
-	function displayInvalidDataMessage($inputField, typeofData, range, typeofSymbols) {
-		console.log('tuk');
-		var $invalidDataAlert = $.parseHTML('div class="alert alert-danger alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong>Warning</strong></div>'),
-			$invalidDataAlertMessege = typeofData + " must be between " + range[0] + " and " + range[1] + 
-					" symbols and must contain " + typeofSymbols;
-			
-			$invalidDataAlert.text($invalidDataAlertMessege);
-			$inputField.insertAfter($invalidDataAlert);
+	function isValidAge(value) {
+		return +(value) >= 16 && +(value) <= 122;
 	}
+
 	var user = {
 		init: function(username, email, password, firstName, lastName, age, city) {
 			this.username = username;
@@ -40,6 +36,35 @@ var user = (function(){
 		},
 		createTrip: function() {
 			
+		},
+		displayInvalidEmailMessege: function() {
+			var $inputField = $('#emailInput'),
+				$invalidDataAlertMessege = "Email must be a valid addres (example@mail.com).",
+				$invalidDataAlert = $.parseHTML('<div class="alert alert-danger alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong>Warning!</strong> ' + $invalidDataAlertMessege + '</div>');
+				
+			$inputField.after($invalidDataAlert);
+			setTimeout(function() {
+				$('.alert').fadeOut(300);
+			}, 5000);
+		},
+		displayInvalidAgeMessege: function() {
+			var $inputField = $('#ageInput'),
+				$invalidDataAlertMessege = "You must be over 16 to register for this site. And we know pretty damn well you're not older than 122, you joker.",
+				$invalidDataAlert = $.parseHTML('<div class="alert alert-danger alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong>Warning!</strong> ' + $invalidDataAlertMessege + '</div>');
+				
+			$inputField.after($invalidDataAlert);
+			setTimeout(function() {
+				$('.alert').fadeOut(300);
+			}, 5000);
+		},
+		displayInvalidDataMessage: function($inputField, typeofData, range, typeofSymbols) {
+			var $invalidDataAlertMessege = typeofData + " must be between " + range[0] + " and " + range[1] + " symbols and must contain " + typeofSymbols,
+				$invalidDataAlert = $.parseHTML('<div class="alert alert-danger alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong>Warning!</strong> ' + $invalidDataAlertMessege + '</div>');
+				
+			$inputField.after($invalidDataAlert);
+			setTimeout(function() {
+				$('.alert').fadeOut(300);
+			}, 5000);
 		}
 	}
 	
@@ -49,8 +74,10 @@ var user = (function(){
 				return this._username;
 			},
 			set: function(value) {
-				if(isValidName(value)) {
+				if(isValidUsername(value)) {
 					this._username = value;
+				} else {
+					this.displayInvalidDataMessage($('#usernameInput'), "Username", [4,30], ['characters', ' numbers', ' or special symbols as !@#$%^&*.']);
 				}
 			}
 		},
@@ -59,10 +86,10 @@ var user = (function(){
 				return this._email;
 			},
 			set: function(value) {
-				if(isValidEmail) {
+				if(isValidEmail(value)) {
 					this._email = value;
 				} else {
-					
+					this.displayInvalidEmailMessege();
 				}
 			}
 		},
@@ -74,8 +101,8 @@ var user = (function(){
 				if(isValidPassword(value)) {
 					this._password = value;
 				} else {
-					displayInvalidDataMessage("Password", [8,30],
-											 [" characters", " numbers", " and/or special symbols (!@#$%^&*)"]);
+					this.displayInvalidDataMessage($('#passwordInput'), "Password", [8,30], ["characters", " numbers", " or special symbols !@#$%^&*."]);
+					this.displayInvalidDataMessage($('#repeatPasswordInput'), "Password", [8,30], ["characters", " numbers", " or special symbols !@#$%^&*."]);
 				}
 			}
 		},
@@ -87,8 +114,7 @@ var user = (function(){
 				if(isValidName(value)) {
 					this._firstName = value;
 				} else {
-					console.log('tuk31');
-					displayInvalidDataMessage($('#firstNameInput'), "First name", [2,20], [" characters only"]);
+					this.displayInvalidDataMessage($('#firstNameInput'), "First name", [2,20], [" characters only."]);
 				}
 			}
 		},
@@ -100,7 +126,7 @@ var user = (function(){
 				if(isValidName(value)) {
 					this._lastName = value;
 				} else {
-					displayInvalidDataMessage("Last name", [2,20], [" characters only"])
+					this.displayInvalidDataMessage($('#lastNameInput'), "Last name", [2,20], [" characters only."]);
 				}
 			}
 		},
@@ -109,7 +135,11 @@ var user = (function(){
 				return this._age;
 			},
 			set: function(value) {
-				this._age = value;
+				if(isValidAge(value)) {
+					this._age = value;
+				} else {
+					this.displayInvalidAgeMessege();
+				}
 			}
 		},
 		city: {
@@ -117,12 +147,26 @@ var user = (function(){
 				return this._city;
 			},
 			set: function(value) {
-				this._city = value;
+				if(isValidName(value)){
+					this._city = value;
+				} else {
+					this.displayInvalidDataMessage($('#cityInput'), "City ", [2,20], ["characters only."]);
+				}
 			}
 		}
 	});
 	
+	user.displayInvalidPasswordMessege = function($inputField) {
+		var $invalidDataAlertMessege = "Passwords do not match. Please re-enter!",
+			$invalidDataAlert = $.parseHTML('<div class="alert alert-danger alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong>Warning!</strong> ' + $invalidDataAlertMessege + '</div>');
+			
+		$inputField.after($invalidDataAlert);
+		setTimeout(function() {
+			$('.alert').fadeOut(300);
+		}, 5000);
+	}
+	
 	return user;
-}());
+}(jQuery));
 
 export { user };

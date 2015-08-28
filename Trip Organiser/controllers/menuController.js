@@ -1,6 +1,7 @@
 import 'jquery';
 
 import { registerUser } from "./registerUserController";
+
 function menuController() {
 	function reloadPage() {
 		$('body').animate({scrollTop: $header.height()}, 400);
@@ -8,10 +9,10 @@ function menuController() {
 	
 	var $container = $('.container'), $header = $('.header'),
 		$homeCTA = $('#home'),
-		// $findTripsCTA = $('#find-trips'),
-		// $myProfileCTA = $('#my-profile'),
-		$registerCTA = $('#register');
-		// $logInCTA = $('#log-in');
+		$findTripsCTA = $('#find-trips'),
+		$myProfileCTA = $('#my-profile'),
+		$registerCTA = $('#register'),
+		$logInCTA = $('#log-in');
 	
 	$homeCTA.click(function() {
 		$container.empty();
@@ -20,8 +21,10 @@ function menuController() {
 	
 	$registerCTA.click(function() {
 		$container.empty();
-		$container.load('../views/registerUser.html', reloadPage);
-		registerUser();
+		$container.load('../views/registerUser.html', function(){
+				reloadPage();
+				registerUser();
+			});
 	});
 	
 };
