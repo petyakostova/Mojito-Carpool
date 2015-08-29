@@ -1,3 +1,10 @@
+.heading_title {
+  font-size: 1.2em;
+  font-weight: 500; }
+.heading_subtitle {
+  font-size: 1.2em;
+  font-weigth: 400; }
+
 .register {
   width: 400px;
   padding-bottom: 65px; }
@@ -26,6 +33,16 @@ body {
   font-family: sans-serif;
   font-size: 1.2em;
   background-color: #ecf0f1; }
+  body .scroll {
+    position: fixed;
+    display: inline-block;
+    right: 5%;
+    bottom: 5%;
+    padding: 5px;
+    font-size: 1.3em;
+    text-align: center;
+    color: #ecf0f1;
+    background-color: #2c3e50; }
   body .header {
     position: relative;
     width: 100%;
@@ -47,7 +64,7 @@ body {
         margin: 0; }
     body .header_menu {
       z-index: 5;
-      position: fixed;
+      position: absolute;
       width: 100%; }
       body .header_menu_list_item {
         font-size: 1.4em !important;
