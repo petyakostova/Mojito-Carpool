@@ -108,9 +108,11 @@
   margin: 15px 0; }
   .profile__image__edit {
     color: #2c3e50;
-    font-size: 1.4em;
+    font-size: 1.25em;
+    text-align: center;
     display: block;
     width: 150px;
+    padding: 0 10px;
     transition: all 0.2s ease-in-out;
     margin-bottom: 15px; }
     .profile__image__edit:hover {
@@ -127,6 +129,16 @@
     color: #2c3e50;
     font-size: 1.5em;
     font-weight: bolder; }
+.profile_upload-image {
+  height: 100px;
+  background: #bdc3c7;
+  transform: translate3d(0, 0, 0); }
+  .profile_upload-image_heading {
+    padding: 10px;
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: 400;
+    color: #2c3e50; }
 
 #scroll_btn {
   position: fixed;

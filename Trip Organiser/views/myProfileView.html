@@ -10,7 +10,7 @@
 						<div class="panel-body">
 							<div class="profile__fields">
 								<img src="../assets/images/my-profile-image-default.gif" alt="My profile image" class="profile__image">
-								<a href="#" class="profile__image__edit">Edit your profile pic</a>
+								<a href="#" class="profile__image__edit">Edit profile image</a>
 							</div>
 							<div class="profile__fields">
 								<span class="profile__fields-info">Name: </span> <span class="profile__fields-data">{{name}}</span>
@@ -28,6 +28,15 @@
 					</div>
 				</script>
 			</div>
+		</div>
+		<div class="col-xs-4">
+			<form class="profile_upload-image" method="post" enctype="multipart/form-data">
+				<h3 class="profile_upload-image_heading">Edit your profile image</h3>
+				<div class="input-group">
+					<label class="profile_upload-image_input-upload_label">Select File</label>
+					<input class="profile_upload-image_input-upload" type="file" class="input-1">	
+				</div>
+			</form>
 		</div>
 	</div>
 </div>
