@@ -1,17 +1,20 @@
-import 'jquery'
-import { globals } from 'globals.js'
+import 'jquery';
+import { globals } from 'globals.js';
 
+import { DOMEventHandlerController } from './DOMEventHandlerController';
+
+import { currentUserController } from './../userControllers/currentUserController' 
 var DOMManipulationController = (function($){
 	var DOMManipulationController = {};
 	
 	DOMManipulationController.displayLogInMessage = function(status) {
 		if(status === 'success') { 
 			DOMManipulationController.displayCurrentUserInMenu();
-			$('.log-in-user-error').css("display", "none");
-			$('.log-in-user-success').css("opacity", 1);
+			$('.log-in-error').css("display", "none");
+			$('.log-in-success').css("opacity", 1);
 		} else if (status === 'error') {
-			$('.log-in-user-success').css("display", "none");
-			$('.log-in-user-error').css("opacity", 1);
+			$('.log-in-success').css("display", "none");
+			$('.log-in-error').css("opacity", 1);
 		}
 	}
 	
@@ -31,11 +34,27 @@ var DOMManipulationController = (function($){
 				return user.result.DisplayName;
 			})
 			.then(function (name) {
-					var template = '<li class="header_menu_list_item" id="my-profile"><a href="#" class="header_menu_list_item_link">Hello, {{name}}</a></li>',
+					var template = '<li class="header_menu_list_item" id="navigation_btn-my-profile"><a id="link-my-profile" href="#" class="header_menu_list_item_link">{{name}}</a></li>',
 						element = Handlebars.compile(template);	
-						
 					$('.navbar-right').append(element({ name: name}));
+					DOMManipulationController.displayLogInOrLogOutCTA('Log out');
+					
+					$('#navigation_btn-my-profile').click(function(e) {
+						e.preventDefault();
+						console.log('click');
+						DOMEventHandlerController.buttonClickEventHandler('../../views/myProfileView.html', [currentUserController.displayUserProfile]);
+					});
 			});
+	}
+	
+	DOMManipulationController.removeCurrentUserFromMenu = function() {
+		$('#navigation_btn-my-profile').remove();
+		DOMManipulationController.displayLogInOrLogOutCTA('Log in');
+	}
+	
+	DOMManipulationController.displayLogInOrLogOutCTA = function(cta) {
+		$('#link-log-in-out').text(cta)
+							.attr("data-info", cta === "Log in" ? "log-in" : "log-out");
 	}
 	
 	

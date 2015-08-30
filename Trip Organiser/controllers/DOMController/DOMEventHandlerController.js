@@ -12,8 +12,7 @@ var DOMEventHandlerController = (function($){
 		}
 		var $container = $('.container');
 		
-		if($(document).scrollTop() < $('.header').height()) {
-			console.log('in');
+		if($(document).scrollTop() < ($('.header').height() / 2)) {
 			DOMManipulationController.scrollToContent();
 		}
 		

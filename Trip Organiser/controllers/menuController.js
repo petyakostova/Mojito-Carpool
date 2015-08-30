@@ -1,23 +1,29 @@
 import 'jquery';
-import { authenticationController } from "./userControllers/authenticationController"
+
+import { authenticationController } from "./userControllers/authenticationController";
+import { currentUserController } from "./userControllers/currentUserController";
+
 import { DOMEventHandlerController } from "./DOMController/DOMEventHandlerController";
 
 
 function menuController() {
-	$('#home').click(function(e) {
+	$('#navigation_btn-home').click(function(e) {
 		e.preventDefault();
 		DOMEventHandlerController.buttonClickEventHandler('../../views/home.html .wrapper');
 		DOMEventHandlerController.unloadEventHandler();
 	});
-	$('#register').click(function(e) {
+	$('#navigation_btn-register').click(function(e) {
 		e.preventDefault();
 		DOMEventHandlerController.buttonClickEventHandler('../../views/registerView.html .wrapper', [authenticationController.register]);
 		DOMEventHandlerController.unloadEventHandler();
 	});
-	$('#log-in').click(function(e){
+	$('#navigation_btn-log-in-out').click(function(e){
 		e.preventDefault();
-		DOMEventHandlerController.buttonClickEventHandler('../../views/logInView.html .wrapper', [authenticationController.logIn]);
-		
+		if($('#link-log-in-out').attr('data-info') === 'log-in') {
+			DOMEventHandlerController.buttonClickEventHandler('../../views/logInView.html .wrapper', [authenticationController.logIn]);	
+		} else {
+			DOMEventHandlerController.buttonClickEventHandler('../../views/home.html', [authenticationController.logOut]);
+		}
 	});
 };
 

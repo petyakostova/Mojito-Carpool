@@ -1,0 +1,33 @@
+<div class="wrapper">
+	<div class="row">
+		<div class="col-xs-8">
+			<div class="profile">
+				<script type="text/x-handlebars-template" id="profile-template">
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							<h1 class="profile__greeting">Hello, {{name}}! <br/> Welcome to your Carpool profile.</h1>
+						</div>
+						<div class="panel-body">
+							<div class="profile__fields">
+								<img src="../assets/images/my-profile-image-default.gif" alt="My profile image" class="profile__image">
+								<a href="#" class="profile__image__edit">Edit your profile pic</a>
+							</div>
+							<div class="profile__fields">
+								<span class="profile__fields-info">Name: </span> <span class="profile__fields-data">{{name}}</span>
+							</div>
+							<div class="profile__fields">
+								<span class="profile__fields-info">Age: </span> <span class="profile__fields-data">{{age}}</span>
+							</div>
+							<div class="profile__fields">
+								<span class="profile__fields-info">City: </span> <span class="profile__fields-data">{{city}}</span>
+							</div>
+							<div class="profile__fields">
+								<span class="profile__fields-info">Email: </span> <span class="profile__fields-data">{{email}}</span>
+							</div>
+						</div>
+					</div>
+				</script>
+			</div>
+		</div>
+	</div>
+</div>
