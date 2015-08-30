@@ -6,13 +6,11 @@ body
 		family: sans-serif
 		size: 1.2em
 	background-color: #ecf0f1
-		
 	
 	.header
 		position: relative
 		width: 100%
 		height: 100vh
-		margin-bottom: 100px
 		background:
 			image: url("../../assets/images/header-background.jpg")
 			size: cover
@@ -33,7 +31,7 @@ body
 		
 		&_menu
 			z-index: 5
-			position: absolute
+			position: fixed
 			width: 100%
 			
 			&_list
@@ -49,3 +47,5 @@ body
 					&_link
 						text-align: center
 						color: white !important
+	.wrapper
+		margin: 100px 0

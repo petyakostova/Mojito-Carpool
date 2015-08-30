@@ -10,18 +10,23 @@
 
 .register
 	width: 100%	
-	padding-bottom: 65px
+	
+	&_fields
+		width: 400px
+		
+		@media screen and (max-width: 990px)
+			width: 100%
 	
 	&_label
 		width: 100% !important
 		font-size: 1.2em
 		margin-top: 15px !important
+	
 	&_input-text
-		width: 400px !important
+		width: 100% !important
 		margin-bottom: 20px !important
 		
-		@media screen and (max-width: 990px)
-			width: 100% !important
+		
 	&_input-submit
 		font-size: 1.2em
 		font-weight: bold

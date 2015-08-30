@@ -46,7 +46,7 @@ var user = (function($){
 			$inputField.after($invalidDataAlert);
 			setTimeout(function() {
 				$('.alert').fadeOut(300);
-			}, 5000);
+			}, 10000);
 		}
 	}
 	

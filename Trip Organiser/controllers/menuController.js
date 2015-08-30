@@ -1,44 +1,25 @@
 import 'jquery';
-import { register } from "./userControllers/registerController";
-import { logIn } from "./userControllers/logInController"
+import { authenticationController } from "./userControllers/authenticationController"
+import { DOMEventHandlerController } from "./DOMController/DOMEventHandlerController";
 
-var $container = $('.container');
-
-function reloadPage() {
-	$('body').animate({scrollTop: $('.header').height()}, 400);
-}
-
-function scrollToTopEventListener() {
-	$('.scroll').click(function(){
-		$('body').animate({scrollTop: 0}, 400);
-	})
-}
-
-
-function buttonClickEventHandler(viewPath, methodDelegates) {
-	$container.empty();
-	$container.load(viewPath, function(){
-		if(methodDelegates) {
-			for(var m in methodDelegates) {
-				methodDelegates[m]();
-			}
-		}
-		reloadPage();
-		scrollToTopEventListener();
-	});
-}
 
 function menuController() {
-	$('#home').click(function() {
-		buttonClickEventHandler('../views/home.html')
+	$('#home').click(function(e) {
+		e.preventDefault();
+		DOMEventHandlerController.buttonClickEventHandler('../../views/home.html .wrapper');
+		DOMEventHandlerController.unloadEventHandler();
 	});
-	$('#register').click(function() {
-		buttonClickEventHandler('../views/registerView.html', [register])
+	$('#register').click(function(e) {
+		e.preventDefault();
+		DOMEventHandlerController.buttonClickEventHandler('../../views/registerView.html .wrapper', [authenticationController.register]);
+		DOMEventHandlerController.unloadEventHandler();
 	});
-	$('#log-in').click(function(){
-		buttonClickEventHandler('../views/logInView.html', [logIn]);
+	$('#log-in').click(function(e){
+		e.preventDefault();
+		DOMEventHandlerController.buttonClickEventHandler('../../views/logInView.html .wrapper', [authenticationController.logIn]);
+		
 	});
 };
 
 
-export { menuController, buttonClickEventHandler }
+export { menuController }
