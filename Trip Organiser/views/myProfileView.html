@@ -9,8 +9,8 @@
 						</div>
 						<div class="panel-body">
 							<div class="profile__fields">
-								<img src="../assets/images/my-profile-image-default.gif" alt="My profile image" class="profile__image">
-								<a href="#" class="profile__image__edit">Edit profile image</a>
+								<img src="{{image}}" alt="My profile image" class="profile__image">
+								<span class="profile__image__edit">Edit profile image</span>
 							</div>
 							<div class="profile__fields">
 								<span class="profile__fields-info">Name: </span> <span class="profile__fields-data">{{name}}</span>
@@ -32,9 +32,27 @@
 		<div class="col-xs-4">
 			<form class="profile_upload-image" method="post" enctype="multipart/form-data">
 				<h3 class="profile_upload-image_heading">Edit your profile image</h3>
-				<div class="input-group">
-					<label class="profile_upload-image_input-upload_label">Select File</label>
-					<input class="profile_upload-image_input-upload" type="file" class="input-1">	
+				<div class="profile_upload-image_upload">
+					<div class="fileinput fileinput-new" data-provides="fileinput">
+						<div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
+						<div>
+							<span class="btn btn-primary btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><input type="file" name="..."></span>
+							<a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput">Remove</a>
+							<input id="profile_upload-image_upload_btn" class="btn btn-primary" type="submit">
+						</div>
+					</div>
+					<div class="profile_upload-image-success">
+						<div class="alert alert-success alert-dismissible" role="alert">
+								<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+								<strong>Success!</strong> Your image was changed.
+						</div>
+					</div>
+					<div class="profile_upload-image-error">
+						<div class="alert alert-danger alert-dismissible" role="alert">
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<strong>Oops!</strong> It seems that an error has occured.
+						</div>
+					</div>
 				</div>
 			</form>
 		</div>

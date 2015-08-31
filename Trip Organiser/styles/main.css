@@ -103,22 +103,23 @@
         color: white !important; }
 
 .profile__image {
-  width: 150px;
-  height: 150px;
+  width: 200px;
+  height: 200px;
   margin: 15px 0; }
   .profile__image__edit {
     color: #2c3e50;
-    font-size: 1.25em;
+    font-size: 1.4em;
     text-align: center;
     display: block;
-    width: 150px;
+    width: 200px;
     padding: 0 10px;
     transition: all 0.2s ease-in-out;
     margin-bottom: 15px; }
     .profile__image__edit:hover {
       text-decoration: none;
       background: #2c3e50;
-      color: #ecf0f1; }
+      color: #ecf0f1;
+      cursor: pointer; }
 .profile__greeting {
   padding-left: 10px; }
 .profile__fields {
@@ -130,15 +131,26 @@
     font-size: 1.5em;
     font-weight: bolder; }
 .profile_upload-image {
-  height: 100px;
+  height: 250px;
   background: #bdc3c7;
-  transform: translate3d(0, 0, 0); }
+  opacity: 0;
+  transition: opacity 0.4s ease-in-out; }
+  .profile_upload-image-clicked {
+    opacity: 1; }
   .profile_upload-image_heading {
     padding: 10px;
     text-align: center;
     font-size: 1.5em;
     font-weight: 400;
     color: #2c3e50; }
+  .profile_upload-image_upload {
+    position: relative;
+    padding: 0 15px;
+    width: 100%; }
+  .profile_upload-image-error {
+    opacity: 0; }
+  .profile_upload-image-success {
+    opacity: 0; }
 
 #scroll_btn {
   position: fixed;

@@ -1,16 +1,16 @@
 .profile
 	
 	&__image
-		width: 150px
-		height: 150px
+		width: 200px
+		height: 200px
 		margin: 15px 0
 		
 		&__edit
 			color: #2c3e50
-			font-size: 1.25em
+			font-size: 1.4em
 			text-align: center
 			display: block
-			width: 150px
+			width: 200px
 			padding: 0 10px
 			transition: all 0.2s ease-in-out
 			margin-bottom: 15px
@@ -19,6 +19,8 @@
 				text-decoration: none
 				background: #2c3e50
 				color: #ecf0f1
+				cursor: pointer
+				
 	&__greeting
 		padding-left: 10px
 	
@@ -35,10 +37,13 @@
 				weight: bolder
 	
 	&_upload-image
-		height: 100px
+		height: 250px
 		background: #bdc3c7
-		transform: translate3d(0, 0, 0)
+		opacity: 0
+		transition: opacity 0.4s ease-in-out
 		
+		&-clicked
+			opacity: 1
 		&_heading
 			padding: 10px
 			text-align: center
@@ -47,6 +52,14 @@
 				weight: 400
 			color: #2c3e50
 			
-			&_input-upload
-				
-				
+		&_upload
+			position: relative
+			padding: 0 15px
+			width: 100%
+		
+		&-error
+			opacity: 0
+		
+		&-success
+			opacity: 0
+			

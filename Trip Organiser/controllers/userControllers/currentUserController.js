@@ -27,13 +27,40 @@ var currentUserController = (function ($) {
 				var profileTemplateHTML = $('#profile-template').html(),
 					profileTemplate = Handlebars.compile(profileTemplateHTML);
 				
-				$('.profile').append(profileTemplate({
-					name: currentUser.DisplayName,
-					email: currentUser.Email,
-					age: currentUser.Age,
-					city: currentUser.City
-				}));
+				globals.everlive.Files.getById(currentUser.Image)
+					.then(function(data){
+						return data.result;
+					})
+					.then(function(image){
+						$('.profile').append(profileTemplate({
+							name: currentUser.DisplayName,
+							email: currentUser.Email,
+							age: currentUser.Age,
+							city: currentUser.City,
+							image: image.Uri
+						}));
+					})
+					.then(function(){
+						DOMEventHandlerController.editImageButtonClickEventHandler();
+						DOMEventHandlerController.uploadImageButtonClickEventHandler();
+					});
 			})
+	}
+	
+	currentUserController.uploadProfileImage = function(imageId) {
+		globals.everlive.Users.currentUser()
+			.then(function(data){
+				return data.result
+			})
+			.then(function(currentUser){
+				globals.everlive.Users.updateSingle({"Id": currentUser.Id, "Image": imageId},
+					function(data){
+						console.log(JSON.stringify(data));
+					},
+					function(err){
+						console.log(JSON.stringify(err));
+					});
+			});
 	}
 
 	return currentUserController;

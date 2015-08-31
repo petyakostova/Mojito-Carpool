@@ -65,7 +65,7 @@ var authenticationController = (function ($) {
 				user.displayInvalidPasswordMessege($('#passwordInput'));
 				user.displayInvalidPasswordMessege($('#repeatPasswordInput'));
 			}
-
+			
 			var newUser = Object.create(user).init(username, email, password, firstName, lastName, age, city);
 
 			globals.everlive.Users.register(
@@ -75,7 +75,8 @@ var authenticationController = (function ($) {
 					Email: newUser.email,
 					DisplayName: newUser.firstName + ' ' + newUser.lastName,
 					Age: newUser.age,
-					City: newUser.city
+					City: newUser.city,
+					Image: 'f7b5dc60-4fd4-11e5-9d9e-b3b5aaf017f7'
 				},
 				DOMManipulationController.displayRegisterMessage('success'),
 				DOMManipulationController.displayRegisterMessage('error')

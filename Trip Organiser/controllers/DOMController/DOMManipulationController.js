@@ -28,6 +28,16 @@ var DOMManipulationController = (function($){
 		}
 	}
 	
+	DOMManipulationController.displayUploadMessage = function(status) {
+		if(status === 'success') {
+			$('.profile_upload-image-error').css("display", "none");
+			$('.profile_upload-image-success').css("opacity", 1);
+		} else if (status === 'error') {
+			$('.profile_upload-image-success').css("display", "none");
+			$('.profile_upload-image-error').css("opacity", 1);
+		}
+	}
+	
 	DOMManipulationController.displayCurrentUserInMenu = function() {
 		globals.everlive.Users.currentUser()
 			.then(function (user) {
@@ -38,10 +48,10 @@ var DOMManipulationController = (function($){
 						element = Handlebars.compile(template);	
 					$('.navbar-right').append(element({ name: name}));
 					DOMManipulationController.displayLogInOrLogOutCTA('Log out');
+					$('#navigation_btn-register').css('display', 'none');
 					
 					$('#navigation_btn-my-profile').click(function(e) {
 						e.preventDefault();
-						console.log('click');
 						DOMEventHandlerController.buttonClickEventHandler('../../views/myProfileView.html', [currentUserController.displayUserProfile]);
 					});
 			});
@@ -50,6 +60,7 @@ var DOMManipulationController = (function($){
 	DOMManipulationController.removeCurrentUserFromMenu = function() {
 		$('#navigation_btn-my-profile').remove();
 		DOMManipulationController.displayLogInOrLogOutCTA('Log in');
+		$('#navigation_btn-register').css('display', 'block');
 	}
 	
 	DOMManipulationController.displayLogInOrLogOutCTA = function(cta) {
@@ -60,7 +71,7 @@ var DOMManipulationController = (function($){
 	
 	DOMManipulationController.scrollToContent = function() {
 		$('body').animate({scrollTop: $('.header').height()}, 400);
-	}
+	}	
 	
 	return DOMManipulationController;
 }(jQuery))
