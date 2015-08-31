@@ -46,6 +46,7 @@ var DOMManipulationController = (function($){
 			.then(function (name) {
 					var template = '<li class="header_menu_list_item" id="navigation_btn-my-profile"><a id="link-my-profile" href="#" class="header_menu_list_item_link">{{name}}</a></li>',
 						element = Handlebars.compile(template);	
+						
 					$('.navbar-right').append(element({ name: name}));
 					DOMManipulationController.displayLogInOrLogOutCTA('Log out');
 					$('#navigation_btn-register').css('display', 'none');

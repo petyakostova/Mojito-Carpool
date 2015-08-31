@@ -25,6 +25,10 @@ function menuController() {
 			DOMEventHandlerController.buttonClickEventHandler('../../views/home.html', [authenticationController.logOut]);
 		}
 	});
+	$('#navigation_btn-find-trips').click(function(e){
+		e.preventDefault();
+		DOMEventHandlerController.buttonClickEventHandler('../../views/findTripsView.html .wrapper');
+	});
 };
 
 

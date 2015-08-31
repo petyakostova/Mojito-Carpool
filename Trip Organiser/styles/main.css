@@ -152,6 +152,26 @@
   .profile_upload-image-success {
     opacity: 0; }
 
+.find-trips_heading {
+  margin-bottom: 50px; }
+  .find-trips_heading_title {
+    margin: 0;
+    padding: 0; }
+  .find-trips_heading_subtitle {
+    margin: 0;
+    padding: 0; }
+.find-trips_btn-create {
+  color: #2c3e50;
+  border: 1px solid #2c3e50;
+  padding: 10px;
+  font-size: 1.5em;
+  font-weight: 400;
+  transition: all 0.2s ease-in-out; }
+  .find-trips_btn-create:hover {
+    cursor: pointer;
+    color: #ecf0f1;
+    background: #2c3e50; }
+
 #scroll_btn {
   position: fixed;
   display: inline-block;
