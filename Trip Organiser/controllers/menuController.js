@@ -5,6 +5,8 @@ import { currentUserController } from "./userControllers/currentUserController";
 
 import { DOMEventHandlerController } from "./DOMController/DOMEventHandlerController";
 
+import { tripController } from "./tripControllers/tripController";
+
 
 function menuController() {
 	$('#navigation_btn-home').click(function(e) {
@@ -27,7 +29,7 @@ function menuController() {
 	});
 	$('#navigation_btn-find-trips').click(function(e){
 		e.preventDefault();
-		DOMEventHandlerController.buttonClickEventHandler('../../views/findTripsView.html .wrapper');
+		DOMEventHandlerController.buttonClickEventHandler('../../views/findTripsView.html .wrapper', [tripController.findTrips]);
 	});
 };
 

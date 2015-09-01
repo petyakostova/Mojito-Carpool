@@ -106,6 +106,15 @@ var DOMEventHandlerController = (function($){
 		}
 	}
 	
+	DOMEventHandlerController.wantPaymentChangeEventHandler = function() {
+		$('input[type="checkbox"]').change(function(e) {
+			if($('input[type="checkbox"]').is(':checked')) {
+				$('#typeOfPaymentInput').prop('disabled', false);
+			} else {
+				$('#typeOfPaymentInput').prop('disabled', true);
+			}
+		});
+	}
 	
 	DOMEventHandlerController.unloadEventHandler = function() {
 		

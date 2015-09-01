@@ -158,19 +158,26 @@
     margin: 0;
     padding: 0; }
   .find-trips_heading_subtitle {
-    margin: 0;
+    margin-top: 10px;
     padding: 0; }
-.find-trips_btn-create {
-  color: #2c3e50;
+
+.create_fields {
+  width: 400px;
+  margin: 20px; }
+  @media screen and (max-width: 990px) {
+    .create_fields {
+      width: 100% !important; } }
+.create_label {
+  width: 100%;
+  font-size: 1.2em; }
+.create_input-select {
+  font-size: 1.4em;
+  width: 2.8em;
   border: 1px solid #2c3e50;
-  padding: 10px;
-  font-size: 1.5em;
-  font-weight: 400;
-  transition: all 0.2s ease-in-out; }
-  .find-trips_btn-create:hover {
-    cursor: pointer;
-    color: #ecf0f1;
-    background: #2c3e50; }
+  color: #2c3e50; }
+.create #additionalInfoInput {
+  resize: none;
+  height: 100px; }
 
 #scroll_btn {
   position: fixed;
@@ -237,5 +244,9 @@ body {
   background-color: #ecf0f1; }
   body .wrapper {
     margin: 100px 0; }
+  body .create_map {
+    width: 400px;
+    height: 400px;
+    margin: 20px 0; }
 
 /*# sourceMappingURL=main.css.map */

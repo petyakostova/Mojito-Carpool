@@ -1,9 +1,43 @@
 <div class="wrapper">
 	<div class="find-trips">
-		<hgroup class="find-trips_heading">
-			<h1 class="find-trips_heading_title">Here you can find trips from all over the country.</h1>
-			<h3 class="find-trips_heading_subtitle">Currently there are 0 active trips.</h3>
-		</hgroup>
-		<span class="find-trips_btn-create">Create a trip</span>
+		<div class="row">
+			<div class="col-xs-6">
+				<hgroup class="find-trips_heading">
+					<h1 class="find-trips_heading_title">Here you can find trips from all over the country.</h1>
+					<h3 class="find-trips_heading_subtitle">Currently there are 0 active trips. <span id="redirect_btn">Create a trip</span></h3>
+				</hgroup>
+			</div>
+			<div class="col-xs-6">
+				<hgroup class="find-trips_heading">
+					<h1 class="find-trips_heading_title">Search for a trip</h1>	
+				</hgroup>
+				<div class="input-group">
+					<div class="input-group-btn">
+						<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Search by: <span class="caret"></span></button>
+						<ul class="dropdown-menu">
+							<li><a href="#">Starting City</a></li>
+							<li><a href="#">Ending City</a></li>
+							<li><a href="#">Date</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a href="#">User</a></li>
+						</ul>
+					</div>
+					<input type="text" class="form-control" aria-label="...">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-8">
+				<script type="text/x-handlebars-template" id="trips-template">
+					{{#trips}}
+						<div class="trip">
+							<h1 class="trip_title">{{startingPoint}} - {{endingPoint}} on {{date}}</h1>
+							<p class="trip_info">{{additionalInfo}}</p>
+							<span class="btn btn-primary">View more</span>
+						</div>
+					{{/trips}}
+				</script>
+			</div>
+		</div>
 	</div>
 </div>

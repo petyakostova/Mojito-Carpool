@@ -69,10 +69,9 @@ var DOMManipulationController = (function($){
 							.attr("data-info", cta === "Log in" ? "log-in" : "log-out");
 	}
 	
-	
 	DOMManipulationController.scrollToContent = function() {
 		$('body').animate({scrollTop: $('.header').height()}, 400);
-	}	
+	}
 	
 	return DOMManipulationController;
 }(jQuery))
