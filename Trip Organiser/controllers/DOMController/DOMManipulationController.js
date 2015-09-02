@@ -5,75 +5,103 @@ import { DOMEventHandlerController } from './DOMEventHandlerController';
 
 import { currentUserController } from './../userControllers/currentUserController' 
 var DOMManipulationController = (function($){
-	var DOMManipulationController = {};
-	
-	DOMManipulationController.displayLogInMessage = function(status) {
-		if(status === 'success') { 
-			DOMManipulationController.displayCurrentUserInMenu();
-			$('.log-in-error').css("display", "none");
-			$('.log-in-success').css("opacity", 1);
-		} else if (status === 'error') {
-			$('.log-in-success').css("display", "none");
-			$('.log-in-error').css("opacity", 1);
-		}
-	}
-	
-	DOMManipulationController.displayRegisterMessage = function(status) {
+	function displayStatusMessage(status, methodDelegates) {
 		if(status === 'success') {
-			$('.register-user-error').css("display", "none");
-			$('.register-user-success').css("opacity", 1);
+			$('.form__messagebox--state-error').css("display", "none");
+			$('.form__messagebox--state-success').css("opacity", 1);
+			if(methodDelegates) {
+				globals.functions.executeMethodDelegates(methodDelegates);
+			}
 		} else if (status === 'error') {
-			$('.register-user-success').css("display", "none");
-			$('.register-user-error').css("opacity", 1);
+			$('.form__messagebox--state-success').css("display", "none");
+			$('.form__messagebox--state-error').css("opacity", 1);
 		}
 	}
 	
-	DOMManipulationController.displayUploadMessage = function(status) {
-		if(status === 'success') {
-			$('.profile_upload-image-error').css("display", "none");
-			$('.profile_upload-image-success').css("opacity", 1);
-		} else if (status === 'error') {
-			$('.profile_upload-image-success').css("display", "none");
-			$('.profile_upload-image-error').css("opacity", 1);
-		}
-	}
+	function compileHandlebarsTemplate(template) {
+		var templateHTML = template,
+			templateAsDOMElement = Handlebars.compile(templateHTML);
+			
+		return templateAsDOMElement;
+	};
 	
-	DOMManipulationController.displayCurrentUserInMenu = function() {
+	function displayCurrentUserInMenu() {
 		globals.everlive.Users.currentUser()
 			.then(function (user) {
 				return user.result.DisplayName;
 			})
 			.then(function (name) {
-					var template = '<li class="header_menu_list_item" id="navigation_btn-my-profile"><a id="link-my-profile" href="#" class="header_menu_list_item_link">{{name}}</a></li>',
-						element = Handlebars.compile(template);	
+					var template = '<li class="menu__list__item" view="myProfile"><a href="#" class="menu__list__item__link">{{name}}</a></li>',
+						templateAsDOMElement = compileHandlebarsTemplate(template)	
 						
-					$('.navbar-right').append(element({ name: name}));
-					DOMManipulationController.displayLogInOrLogOutCTA('Log out');
-					$('#navigation_btn-register').css('display', 'none');
+					$('.navbar-right').append(templateAsDOMElement({ name: name}));
+					displayLogInOrLogOutCTA('Log out');
+					$('.menu__list__item[view="register"]').css('display', 'none');
 					
-					$('#navigation_btn-my-profile').click(function(e) {
+					$('.menu__list__item[view="myProfile"]').click(function(e) {
 						e.preventDefault();
-						DOMEventHandlerController.buttonClickEventHandler('../../views/myProfileView.html', [currentUserController.displayUserProfile]);
+						DOMEventHandlerController.menuButtonClick('../../views/myProfileView.html', [displayCurrentUserProfile]);
 					});
 			});
 	}
 	
-	DOMManipulationController.removeCurrentUserFromMenu = function() {
-		$('#navigation_btn-my-profile').remove();
-		DOMManipulationController.displayLogInOrLogOutCTA('Log in');
-		$('#navigation_btn-register').css('display', 'block');
+	function displayCurrentUserProfile() {
+		globals.everlive.Users.currentUser()
+			.then(function(user) {
+				return user.result
+			})
+			.then(function(currentUser) {
+				var profileTemplateHTML = $('#profile-template').html(),
+					profileTemplate = compileHandlebarsTemplate(profileTemplateHTML);
+				globals.everlive.Files.getById(currentUser.Image)
+					.then(function(data){
+						return data.result;
+					})
+					.then(function(image){
+						$('.profile').append(profileTemplate({
+							name: currentUser.DisplayName,
+							email: currentUser.Email,
+							age: currentUser.Age,
+							city: currentUser.City,
+							image: image.Uri
+						}));
+					})
+					.then(function(){
+						DOMEventHandlerController.editImageButtonClick();
+						DOMEventHandlerController.uploadImageButtonClick();
+					});
+			});
+	};
+	
+	function removeCurrentUserFromMenu () {
+		$('.menu__list__item[view="myProfile"]').remove();
+		displayLogInOrLogOutCTA('Log in');
+		$('.menu__list__item[view="register"]').css('display', 'block');
 	}
 	
-	DOMManipulationController.displayLogInOrLogOutCTA = function(cta) {
-		$('#link-log-in-out').text(cta)
-							.attr("data-info", cta === "Log in" ? "log-in" : "log-out");
+	 function displayLogInOrLogOutCTA(cta) {
+		if(cta === "Log in") {
+			$('#menu__list__item__log-in').css('display', 'block');
+			$('#menu__list__item__log-out').css('display', 'none');
+		} else if (cta === "Log out") {
+			$('#menu__list__item__log-out').css('display', 'block');
+			$('#menu__list__item__log-in').css('display', 'none');
+		}
 	}
 	
-	DOMManipulationController.scrollToContent = function() {
+	function animateScrollToContent() {
 		$('body').animate({scrollTop: $('.header').height()}, 400);
 	}
 	
-	return DOMManipulationController;
+	return {
+		displayStatusMessage: displayStatusMessage,
+		compileHandlebarsTemplate: compileHandlebarsTemplate,
+		displayCurrentUserInMenu: displayCurrentUserInMenu,
+		displayCurrentUserProfile: displayCurrentUserProfile,
+		removeCurrentUserFromMenu: removeCurrentUserFromMenu,
+		displayLogInOrLogOutCTA: displayLogInOrLogOutCTA,
+		animateScrollToContent: animateScrollToContent
+	};
 }(jQuery))
 
 export {

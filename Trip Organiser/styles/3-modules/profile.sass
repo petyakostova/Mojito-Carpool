@@ -1,0 +1,58 @@
+.profile
+				
+	&__greeting
+		padding-left: 10px
+	
+	&__field
+		margin: 10px
+		
+		&__image
+			width: 200px
+			height: 200px
+			margin: 15px 0
+		
+		&__btn__edit
+			color: $foreground-color
+			font-size: 1.4em
+			text-align: center
+			display: block
+			width: 200px
+			padding: 0 10px
+			transition: all 0.2s ease-in-out
+			margin-bottom: 15px
+			
+			&:hover
+				text-decoration: none
+				background: $foreground-color
+				color: $background-color
+				cursor: pointer
+		
+		&__data
+			font-size: 1.5em
+		
+		&__info
+			color: #2c3e50
+			font:
+				size: 1.5em
+				weight: bolder
+	
+.form__upload
+	height: 250px
+	background: #bdc3c7
+	opacity: 0
+	transition: opacity 0.4s ease-in-out
+	
+	&-clicked
+		opacity: 1
+	
+	&__maintitle
+		padding: 10px
+		text-align: center
+		font:
+			size: 1.5em
+			weight: 400
+		color: $foreground-color
+		
+	&__messagebox--state-success,
+	&__messagebox--state-error
+		opacity: 0	

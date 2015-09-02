@@ -1,0 +1,55 @@
+.form
+
+	&__field
+		width: 400px
+		
+		@media screen and (max-width: 990px)
+			width: 100%
+	
+		&__label
+			width: 100% !important
+			font-size: 1.2em
+			margin-top: 15px !important
+		
+		&__input--type
+			
+			&-text
+				width: 100% !important
+				margin-bottom: 20px !important
+			
+			&-textarea
+				resize: none
+				height: 100px
+			
+			&-submit
+				+basic-ease-in-out-animation()
+				font:
+					size: 1.2em
+					weight: bold
+				margin-bottom: 10px
+				width: 100px
+				height: 40px
+				background: none
+				border: 2px solid $foreground-color
+				
+				&:hover
+					background: $foreground-color
+					color: $background-color
+			&-select
+				font-size: 1.4em
+				width: 2.8em
+				border: 1px solid $foreground-color
+				color: $foreground-color
+			
+			&-map
+				width: 100%
+				height: 400px
+				margin: 20px 0
+				
+	&__messagebox--state-success,
+	&__messagebox--state-error
+		opacity: 0
+		transition: opacity 0.5s ease-in 
+				
+				
+				

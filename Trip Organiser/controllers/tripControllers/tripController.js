@@ -19,8 +19,8 @@ var tripController = (function($){
 		}
 
 
-		$('#redirect_btn').click(function(){
-			DOMEventHandlerController.buttonClickEventHandler('../views/createTripView.html', [tripController.createTrip]);
+		$('.btn__redirect').click(function(){
+			DOMEventHandlerController.loadPartialView('../views/createTripView.html', [tripController.createTrip]);
 		});
 
 	};

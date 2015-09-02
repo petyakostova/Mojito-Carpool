@@ -13,11 +13,11 @@
 
 <body>
 	<header class="header">
-		<hgroup class="header_heading">
-			<h1 class="header_heading_title">Carpool</h1>
-			<h2 class="header_heading_subtitle">Developed by Team Mojito</h2>
+		<hgroup class="header__title">
+			<h1 class="header__title-main">Carpool</h1>
+			<h2 class="header__title-sub">Developed by Team Mojito</h2>
 		</hgroup>
-		<nav class="header_menu navbar navbar-default" role="navigation">
+		<nav class="menu navbar navbar-default" role="navigation">
 			<div class="container-fluid">
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -28,22 +28,23 @@
 					</button>
 				</div>
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-					<ul class="header_menu_list nav navbar-nav">
-						<li class="header_menu_list_item" id="navigation_btn-home"><a id="link-home" href="#" class="header_menu_list_item_link">Home</a></li>
-						<li class="header_menu_list_item" id="navigation_btn-find-trips"><a id="link-find-trips" href="#" class="header_menu_list_item_link">Find trips</a></li>
-						<li class="header_menu_list_item" id="navigation_btn-register"><a id="link-register" href="#" class="header_menu_list_item_link">Register</a></li>
+					<ul class="menu__list nav navbar-nav">
+						<li class="menu__list__item" view="home"><a href="#" class="menu__list__item__link">Home</a></li>
+						<li class="menu__list__item" view="findTrips"><a href="#" class="menu__list__item__link">Find trips</a></li>
+						<li class="menu__list__item" view="register"><a href="#" class="menu__list__item__link">Register</a></li>
 					</ul>
-					<ul class="header_menu_list nav navbar-nav navbar-right">
-						<li class="header_menu_list_item" id="navigation_btn-log-in-out"><a id="link-log-in-out" href="#" class="header_menu_list_item_link" data-info="none"></a></li>
+					<ul class="menu__list nav navbar-nav navbar-right">
+						<li class="menu__list__item" view="logIn" id="menu__list__item__log-in"><a href="#" class="menu__list__item__link">Log in</a></li>
+						<li class="menu__list__item" view="logOut" id="menu__list__item__log-out"><a href="#" class="menu__list__item__link">Log out</a></li>
 					</ul>
 				</div>
 			</div>
 		</nav>
 	</header>
 	<main class="container">
-		<div id="map"></div>
+		
 	</main>
-	<a id="scroll_btn" href="#">Scroll to top</a>
+	<a class="btn__scroll" href="#">Scroll to top</a>
 </body>
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
@@ -57,7 +58,6 @@
 	System.config({
 		"transpiler" : "babel"
 	});
-	System.import("../controllers/appController.js")
-
+	System.import("../controllers/appController.js");
 </script>
 </html>
