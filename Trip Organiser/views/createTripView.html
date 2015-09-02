@@ -6,33 +6,37 @@
 					<h1 class="heading__title">Create trip</h1>
 				</hgroup>
 				<div class="input-group">
-					<div class="form__filed">
-						<label class="form__filed__label for="startingPoint" ">Starting point (please drag the marker on the map to the exact street from which you'll leave): </label>
-						<input class="form__field__input--type-text form-control" type="text" id="input--starting-point" name="startingPoint" disabled="disabled">
+					<div class="form__field">
+						<label class="form__field__label for="startingPoint" ">Starting point (please drag the marker on the map to the exact street from which you'll leave): </label>
+						<input class="form__field__input--type-text form-control" type="text" id="input--starting-point" name="startingPoint">
+						<input class="form__field__input--type-hidden" type="hidden" id="input--starting-point-coords">
 					</div>
-					<div class="form__filed">
-						<label class="form__filed__label"></label>
+					<div class="form__field">
+						<label class="form__field__label">Double click on the marker if you want your starting point to be filled out automaticliy. <br/>
+															Warning! Ending point may not be accurate so it's recommended that you fill out the form manualy.</label>
 						<div class="form__field__input--type-map" id="map--starting-point"></div>
 					</div>
-					<div class="form__filed">
-						<label for="endingPoint" class="form__filed__label">Ending point (please drag the marker on the map to the exact street on which you'll arrive): </label>
-						<input class="form__field__input--type-text form-control" type="text" id="input--ending-point" name="endingPoint" disabled="disabled">
+					<div class="form__field">
+						<label for="endingPoint" class="form__field__label">Ending point (please drag the marker on the map to the exact street on which you'll arrive): </label>
+						<input class="form__field__input--type-text form-control" type="text" id="input--ending-point" name="endingPoint">
+						<input class="form__field__input--type-hidden" type="hidden" id="input--ending-point-coords">
 					</div>
-					<div class="form__filed">
-						<label class="form__filed__label"></label>
+					<div class="form__field">
+						<label class="form__field__label">Double click on the marker if you want your ending point to be filled out automaticliy. <br/>
+															Warning! Starting point may not be accurate so it's recommended that you fill out the form manualy.</label>
 						<div class="form__field__input--type-map" id="map--ending-point"></div>
 					</div>
-					<div class="form__filed">
-						<label class="form__filed__label" for="date">Starting Date: </label>
+					<div class="form__field">
+						<label class="form__field__label" for="date">Starting Date: </label>
 						<div class='input-group date' class="form__field__input--type-date" id='datetimepicker' name="date">
-							<input type="text" class="form-control" id="dateInput" placeholder="MM/DD/YYYY HH/MM AM|PM"/>
+							<input type="text" class="form-control" id="input--date" placeholder="MM/DD/YYYY HH/MM AM|PM"/>
 							<span class="input-group-addon">
 							<span class="glyphicon glyphicon-calendar"></span>
 							</span>
 						</div>
 					</div>
-					<div class="form__filed">
-						<label class="form__filed__label"  for="want-payment">Do you want payment? </label>
+					<div class="form__field">
+						<label class="form__field__label"  for="want-payment">Do you want payment? </label>
 						<div class="input-group">
 							<span class="input-group-addon">
 								<input type="checkbox" aria-label="..." id="input--want-payment" name="want-payment">
@@ -40,8 +44,8 @@
 							<input type="text" class="form-control" aria-label="..." placeholder="in eg. food, money, gas" disabled="disabled" class="form__field__input--type-text" id="input--typeof-payment">
 						</div>
 					</div>
-					<div class="form__filed">
-						<label for="numberof-seats" class="form__filed__label">Select the number of free seats you have in your vehiecle</label>
+					<div class="form__field">
+						<label for="numberof-seats" class="form__field__label">Select the number of free seats you have in your vehiecle</label>
 						<select class="form__field__input--type-select" id="input--numberof-seats" name="numberof-seats">
 							<option value="1">1</option>
 							<option value="2">2</option>
@@ -53,12 +57,12 @@
 							<option value="4">8</option>
 						</select>
 					</div>
-					<div class="form__filed">
-						<label class="form__filed__label" for="additional-info">Add some more information regarding your trip: </label>
+					<div class="form__field">
+						<label class="form__field__label" for="additional-info">Add some more information regarding your trip: </label>
 						<textarea class="form__field__input--type-textarea form-control" name="additional-info" id="input--additional-info"></textarea>
 					</div>
-					<div class="form__filed">
-						<input type="submit" class="form__field__input--type-submit btn btn-primary" value="Create">
+					<div class="form__field">
+						<input type="submit" class="form__field__input--type-submit" value="Create">
 					</div>
 				</div>
 			</form>
@@ -94,28 +98,30 @@
 				}),
 				endingPointMap = new google.maps.Map(document.getElementById('map--ending-point'), {
 					center: endingPointLatLng,
-					zoom: 6
+					zoom: 10
 				});
 			
 			
 			startingPointMarker.setMap(startingPointMap);
-			startingPointMarker.addListener('dbclick', function() {
+			startingPointMarker.addListener('dblclick', function() {
 				var latLng = startingPointMap.getBounds(),
 					lng = latLng.Ea.G,
 					lat = latLng.Ja.G;
 					
 				codeLatLng($('#input--starting-point'), lat, lng);
+				getLatLng($('#input--starting-point-coords'), startingPointMap);
 			});
 			infoWindow.open(startingPointMap, startingPointMarker);
 			
 			
 			endingPointMarker.setMap(endingPointMap);
-			endingPointMarker.addListener('dbclick', function() {
+			endingPointMarker.addListener('dblclick', function() {
 				var latLng = endingPointMap.getBounds(),
 					lng = latLng.Ea.G,
 					lat = latLng.Ja.G;
 					
 				codeLatLng($('#input--ending-point'), lat, lng);
+				getLatLng($('#input--ending-point-coords'), endingPointMap);
 			});
 		}
 		
@@ -131,6 +137,14 @@
 			navigator.geo.getCurrentPosition(geoSuccess, geoError);
 		} else {
 			pinLocation(42.6970783,23.3218784, "<h5 style=\"text-align: center\">Geo is not supported by your browser. Welcome to the center of Sofia!</h5>");
+		}
+		
+		function getLatLng($input, map) {
+			var latLng = map.getBounds(),
+				lng = latLng.Ea.G,
+				lat = latLng.Ja.G;
+				
+			$input.val([lat, lng]);
 		}
 		
 		function codeLatLng($input, lat, lng) {

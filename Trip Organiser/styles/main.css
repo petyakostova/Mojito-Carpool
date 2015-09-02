@@ -85,13 +85,13 @@ body {
     font-size: 1.1em; }
 
 .form__field {
-  width: 600px; }
+  width: 400px; }
   @media screen and (max-width: 990px) {
     .form__field {
       width: 100%; } }
   .form__field__label {
     width: 100% !important;
-    font-size: 1.2em;
+    font-size: 1.3em !important;
     margin-top: 15px !important; }
   .form__field__input--type-text {
     width: 100% !important;

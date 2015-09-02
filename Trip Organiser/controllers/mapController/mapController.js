@@ -1,10 +1,19 @@
 var mapController = (function(){
-	function createMap(id, center, zoom) {
-		var map = new google.maps.Map(document.getElementById('map--starting-point'), {
-			center: startingPointLatLng,
+	var maps = [];
+	function setMap(id, center, zoom) {
+		var map = new google.maps.Map(document.getElementById(id), {
+			center: center,
 			zoom: 18
-		})
+		});
+		
+		return map;
+	};
+	
+	function getMap (id) {
+		return maps[id];
 	}
+	
+	
 	function initialize () {
 		var geocoder = new google.maps.Geocoder();
 		
@@ -24,11 +33,10 @@ var mapController = (function(){
 				infoWindow = new google.maps.InfoWindow({
 					content: startingPointMarkerText
 				}),
-				startingPointMap = ,
-				endingPointMap = new google.maps.Map(document.getElementById('map--ending-point'), {
-					center: endingPointLatLng,
-					zoom: 6
-				});
+				startingPointMap = setMap('map--starting-point', startingPointLatLng, 18),
+				endingPointMap = setMap('map--ending-point', endingPointLatLng, 6);
+				maps['map--starting-point'] = startingPointMap;
+				maps['map--ending-point'] = endingPointMap;
 			
 			
 			startingPointMarker.setMap(startingPointMap);

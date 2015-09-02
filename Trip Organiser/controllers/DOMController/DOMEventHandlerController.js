@@ -55,7 +55,7 @@ var DOMEventHandlerController = (function ($) {
 	}
 
 	function wantPaymentCheckboxChange() {
-		$('input--want-payment').change(function (e) {
+		$('#input--want-payment').change(function (e) {
 			if ($(this).is(':checked')) {
 				$('#input--typeof-payment').prop('disabled', false);
 			} else {

@@ -1,7 +1,7 @@
 var trip = (function(){
 	var trip = {
 		init: function(startingPoint, startingPointLocation, endingPoint, endingPointLocation,
-			date, wantPayment, typeOfPayemnt) {
+			date, wantPayment, typeOfPayemnt, numberOfSeats, additionalInformation) {
 				this.startingPoint = startingPoint;
 				this.startingPointLocation = startingPointLocation;
 				this.endingPoint = endingPoint;
@@ -9,7 +9,9 @@ var trip = (function(){
 				this.date = date;
 				this.wantPayment = wantPayment || false;
 				this.typeOfPayment = typeOfPayemnt || 'None';
-
+				this.numberOfSeats = numberOfSeats;
+				this.additionalInfromation = additionalInformation;
+				
 				return this;
 			}
 	}
@@ -68,6 +70,22 @@ var trip = (function(){
 			},
 			set: function(value) {
 				this._typeOfPayment = value;
+			}
+		},
+		numberOfPayment: {
+			get: function() {
+				return this._numberOfPayment;
+			},
+			set: function(value) {
+				this._numberOfPayment = value;
+			}
+		},
+		additionalInformation: {
+			get: function() {
+				return this._additionalInformation;
+			},
+			set: function(value) {
+				this._additionalInformation = value;
 			}
 		}
 	});
