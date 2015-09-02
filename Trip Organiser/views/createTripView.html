@@ -1,70 +1,71 @@
 <div class="wrapper">
-	<div class="create-trip">
-		<div class="row">
-			<div class="col-xs-6">
-				<form class="create">
-					<div class="input-group">
-						<div class="create_fields">
-							<label for="startingPoint" class="create_label">Starting point (please drag the marker on the map to the exact street from which you'll leave): </label>
-							<input type="text" class="create_input form-control" id="startingPointInput" name="startingPoint" disabled="disabled">
-						</div>
-						<div class="create_fields">
-							<label class="create_label"></label>
-							<div class="create_map" id="startingPointLocationMap"></div>
-						</div>
-						<div class="create_fields">
-							<label for="endingPoint" class="create_label">Ending point (please drag the marker on the map to the exact street on which you'll arrive): </label>
-							<input type="text" class="create_input form-control" id="endingPointInput" name="endingPoint" disabled="disabled">
-						</div>
-						<div class="create_fields">
-							<label class="create_label"></label>
-							<div class="create_map" id="endingPointLocationMap"></div>
-						</div>
-						<div class="create_fields">
-							<label for="" class="create_label">Starting Date: </label>
-							<div class='input-group date' class="create_input" id='datetimepicker'>
-								<input type='text' class="form-control" id="dateInput" placeholder="MM/DD/YYYY HH/MM AM|PM"/>
-								<span class="input-group-addon">
-								<span class="glyphicon glyphicon-calendar"></span>
-								</span>
-							</div>
-						</div>
-						<div class="create_fields">
-							<label for="wantPayment" class="create_label">Do you want payment? </label>
-							<div class="input-group">
-								<span class="input-group-addon">
-									<input type="checkbox" aria-label="..." id="wantPaymentInput">
-								</span>
-								<input type="text" class="form-control" aria-label="..." placeholder="in eg. food, money, gas" disabled="disabled" class="create_input" id="typeOfPaymentInput">
-							</div>
-						</div>
-						<div class="create_fields">
-							<label for="numberOfSeats" class="create_label">Select the number of free seats you have in your vehiecle</label>
-							<select class="create_input-select" id="numberOfSeatsInput">
-								<option value="1">1</option>
-								<option value="2">2</option>
-								<option value="3">3</option>
-								<option value="4">4</option>
-								<option value="4">5</option>
-								<option value="4">6</option>
-								<option value="4">7</option>
-								<option value="4">8</option>
-							</select>
-						</div>
-						<div class="create_fields">
-							<label for="additionalInfo" class="create_label">Add some more information regarding your trip: </label>
-							<textarea type="text" class="create_input form-control" name="additionalInfo" id="additionalInfoInput"></textarea>
-						</div>
-						<div class="create_fields">
-							<input type="submit" class="create_input-submit btn btn-primary" value="Create">
+	<div class="row">
+		<div class="col-xs-6">
+			<form class="form">
+				<hgroup class="heading">
+					<h1 class="heading__title">Create trip</h1>
+				</hgroup>
+				<div class="input-group">
+					<div class="form__filed">
+						<label class="form__filed__label for="startingPoint" ">Starting point (please drag the marker on the map to the exact street from which you'll leave): </label>
+						<input class="form__field__input--type-text form-control" type="text" id="input--starting-point" name="startingPoint" disabled="disabled">
+					</div>
+					<div class="form__filed">
+						<label class="form__filed__label"></label>
+						<div class="form__field__input--type-map" id="map--starting-point"></div>
+					</div>
+					<div class="form__filed">
+						<label for="endingPoint" class="form__filed__label">Ending point (please drag the marker on the map to the exact street on which you'll arrive): </label>
+						<input class="form__field__input--type-text form-control" type="text" id="input--ending-point" name="endingPoint" disabled="disabled">
+					</div>
+					<div class="form__filed">
+						<label class="form__filed__label"></label>
+						<div class="form__field__input--type-map" id="map--ending-point"></div>
+					</div>
+					<div class="form__filed">
+						<label class="form__filed__label" for="date">Starting Date: </label>
+						<div class='input-group date' class="form__field__input--type-date" id='datetimepicker' name="date">
+							<input type="text" class="form-control" id="dateInput" placeholder="MM/DD/YYYY HH/MM AM|PM"/>
+							<span class="input-group-addon">
+							<span class="glyphicon glyphicon-calendar"></span>
+							</span>
 						</div>
 					</div>
-				</form>
-			</div>
+					<div class="form__filed">
+						<label class="form__filed__label"  for="want-payment">Do you want payment? </label>
+						<div class="input-group">
+							<span class="input-group-addon">
+								<input type="checkbox" aria-label="..." id="input--want-payment" name="want-payment">
+							</span>
+							<input type="text" class="form-control" aria-label="..." placeholder="in eg. food, money, gas" disabled="disabled" class="form__field__input--type-text" id="input--typeof-payment">
+						</div>
+					</div>
+					<div class="form__filed">
+						<label for="numberof-seats" class="form__filed__label">Select the number of free seats you have in your vehiecle</label>
+						<select class="form__field__input--type-select" id="input--numberof-seats" name="numberof-seats">
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="4">5</option>
+							<option value="4">6</option>
+							<option value="4">7</option>
+							<option value="4">8</option>
+						</select>
+					</div>
+					<div class="form__filed">
+						<label class="form__filed__label" for="additional-info">Add some more information regarding your trip: </label>
+						<textarea class="form__field__input--type-textarea form-control" name="additional-info" id="input--additional-info"></textarea>
+					</div>
+					<div class="form__filed">
+						<input type="submit" class="form__field__input--type-submit btn btn-primary" value="Create">
+					</div>
+				</div>
+			</form>
 		</div>
-		<div class="col-xs-6">
-				
-		</div>
+	</div>
+	<div class="col-xs-6">
+			
 	</div>
 </div>
 <script>
@@ -87,30 +88,30 @@
 				infoWindow = new google.maps.InfoWindow({
 					content: startingPointMarkerText
 				}),
-				startingPointLocationMap = new google.maps.Map(document.getElementById('startingPointLocationMap'), {
+				startingPointMap = new google.maps.Map(document.getElementById('map--starting-point'), {
 					center: startingPointLatLng,
 					zoom: 18
 				}),
-				endingPointLocationMap = new google.maps.Map(document.getElementById('endingPointLocationMap'), {
+				endingPointMap = new google.maps.Map(document.getElementById('map--ending-point'), {
 					center: endingPointLatLng,
 					zoom: 6
 				});
 			
 			
-			startingPointMarker.setMap(startingPointLocationMap);
-			startingPointMarker.addListener('drag', function() {
-				var latLng = startingPointLocationMap.getBounds(),
+			startingPointMarker.setMap(startingPointMap);
+			startingPointMarker.addListener('dbclick', function() {
+				var latLng = startingPointMap.getBounds(),
 					lng = latLng.Ea.G,
 					lat = latLng.Ja.G;
 					
 				codeLatLng($('#startingPointInput'), lat, lng);
 			});
-			infoWindow.open(startingPointLocationMap, startingPointMarker);
+			infoWindow.open(startingPointMap, startingPointMarker);
 			
 			
-			endingPointMarker.setMap(endingPointLocationMap);
-			endingPointMarker.addListener('drag', function() {
-				var latLng = endingPointLocationMap.getBounds(),
+			endingPointMarker.setMap(endingPointMap);
+			endingPointMarker.addListener('dbclick', function() {
+				var latLng = endingPointMap.getBounds(),
 					lng = latLng.Ea.G,
 					lat = latLng.Ja.G;
 					
@@ -123,13 +124,13 @@
 		};
 		
 		function geoError() {
-			pinLocation(42.6509798, 23.3792025, "<h5 style=\"text-align: center\">Could not find your location. So I dropped you off at Telerik Academy</h5>"); 			
+			pinLocation(42.6509798, 23.3792025, "<h5 style=\"text-align: center\">Could not find your . So I dropped you off at Telerik Academy</h5>"); 			
 		}
 				
-		if(navigator.geolocation) {
-			navigator.geolocation.getCurrentPosition(geoSuccess, geoError);
+		if(navigator.geo) {
+			navigator.geo.getCurrentPosition(geoSuccess, geoError);
 		} else {
-			pinLocation(42.6970783,23.3218784, "<h5 style=\"text-align: center\">Geolocation is not supported by your browser. Welcome to the center of Sofia!</h5>");
+			pinLocation(42.6970783,23.3218784, "<h5 style=\"text-align: center\">Geo is not supported by your browser. Welcome to the center of Sofia!</h5>");
 		}
 		
 		function codeLatLng($input, lat, lng) {
@@ -143,16 +144,15 @@
 								city= results[0].address_components[i];
 								break;
 							}
+						}
 					}
-				}
-				$input.val(city.long_name);
-		
-		
+				
+					$input.val(city.long_name);
 				} else {
 					alert("No results found");
-					}
-				} else {
-					alert("Geocoder failed due to: " + status);
+				}
+			} else {
+				alert("Geocoder failed due to: " + status);
 				}
 			});
 		}

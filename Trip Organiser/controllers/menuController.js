@@ -9,27 +9,27 @@ import { tripController } from "./tripControllers/tripController";
 
 
 function menuController() {
-	$('#navigation_btn-home').click(function(e) {
-		e.preventDefault();
-		DOMEventHandlerController.buttonClickEventHandler('../../views/home.html .wrapper');
-		DOMEventHandlerController.unloadEventHandler();
-	});
-	$('#navigation_btn-register').click(function(e) {
-		e.preventDefault();
-		DOMEventHandlerController.buttonClickEventHandler('../../views/registerView.html .wrapper', [authenticationController.register]);
-		DOMEventHandlerController.unloadEventHandler();
-	});
-	$('#navigation_btn-log-in-out').click(function(e){
-		e.preventDefault();
-		if($('#link-log-in-out').attr('data-info') === 'log-in') {
-			DOMEventHandlerController.buttonClickEventHandler('../../views/logInView.html .wrapper', [authenticationController.logIn]);	
-		} else {
-			DOMEventHandlerController.buttonClickEventHandler('../../views/home.html', [authenticationController.logOut]);
-		}
-	});
-	$('#navigation_btn-find-trips').click(function(e){
-		e.preventDefault();
-		DOMEventHandlerController.buttonClickEventHandler('../../views/findTripsView.html .wrapper', [tripController.findTrips]);
+	$('.menu__list__item').each(function(){
+		$(this).click(function(e){
+			var partialViewPath = '../../views/' + ($(this).attr('view')) + 'View.html';
+			e.preventDefault();
+			
+			
+			if($(this).context.id == 'btn__log-in-out') {
+				if($('#btn__log-in-out').attr('data-info') === 'log-in') {
+					DOMEventHandlerController.menuButtonClick('../../views/logInView.html', [authenticationController.logIn]);
+				} else {
+					DOMEventHandlerController.menuButtonClick('../../viws/homeView.html', [authenticationController.logOut]);
+				}
+			}
+			
+			switch($(this).attr('view')) {
+				case ('home'): DOMEventHandlerController.menuButtonClick(partialViewPath); break;
+				case ('register'): DOMEventHandlerController.menuButtonClick(partialViewPath, [authenticationController.register]); break;
+				case ('findTrips'): DOMEventHandlerController.menuButtonClick(partialViewPath, [tripController.findTrips]); break;
+				case ('myProfile'): DOMEventHandlerController.menuButtonClick(partialViewPath, [currentUserController.displayCurrentUserInApplication]);	
+			}
+		});
 	});
 };
 

@@ -149,16 +149,6 @@ var user = (function($){
 		}
 	});
 	
-	user.displayInvalidPasswordMessege = function($inputField) {
-		var $invalidDataAlertMessege = "Passwords do not match. Please re-enter!",
-			$invalidDataAlert = $.parseHTML('<div class="alert alert-danger alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong>Warning!</strong> ' + $invalidDataAlertMessege + '</div>');
-			
-		$inputField.after($invalidDataAlert);
-		setTimeout(function() {
-			$('.alert').fadeOut(300);
-		}, 5000);
-	}
-	
 	return user;
 }(jQuery));
 

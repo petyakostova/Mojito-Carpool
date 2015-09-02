@@ -9,7 +9,14 @@ var globals = {
 				}
 			}
 		}),
-	googleMapsApiKey: "AIzaSyCP-eA0mFSfcp4SHUSwt9AJngiRbrqsbeU"
+	googleMapsApiKey: "AIzaSyCP-eA0mFSfcp4SHUSwt9AJngiRbrqsbeU",
+	functions: {
+		executeMethodDelegates: function(delegates) {
+			for(var d in delegates) {
+				delegates[d]();
+			}
+		}
+	}
 }
 
 export { globals }

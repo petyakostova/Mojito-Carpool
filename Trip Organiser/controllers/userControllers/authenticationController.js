@@ -9,12 +9,11 @@ import { currentUserController } from './currentUserController.js';
 import { user } from './../../modules/user/userModule.js'
 
 var authenticationController = (function ($) {
-	var authenticationController = {};
 
-	authenticationController.logIn = function () {
+	function logIn () {
 		function logInHandler() {
-			var username = $('#usernameInput').val(),
-				password = $('#passwordInput').val();
+			var username = $('#input--username').val(),
+				password = $('#input--password').val();
 
 			globals.everlive.authentication.login(
 				username,
@@ -22,18 +21,20 @@ var authenticationController = (function ($) {
 				function() {
 					currentUserController.displayCurrentUserInApplication();
 				});
+			
+			DOMEventHandlerController.buttonClickEventHandler('../views/myProfileView.html', [currentUserController.displayCurrentUserInApplication]);
 		}
 
-		$('.log-in_input-submit').click(function () {
+		$('.form__field_input--type-submit').click(function () {
 			logInHandler();
 		});
 
-		$('#redirect_btn').click(function () {
-			DOMEventHandlerController.buttonClickEventHandler('../views/registerView.html', [authenticationController.register]);
+		$('.btn__redirect').click(function () {
+			DOMEventHandlerController.redirectButtonClick('../views/registerView.html', [register]);
 		});
 	}
 
-	authenticationController.logOut = function () {
+	function logOut () {
 		globals.everlive.authentication.logout(
 			function () {
 				currentUserController.displayCurrentUserInApplication();
@@ -41,29 +42,29 @@ var authenticationController = (function ($) {
 			function () {
 				
 			}
-			);
+		);
 	}
 
 
 
-	authenticationController.register = function () {
+	function  register () {
 		function areMatchingPasswords(password, repeatedPassword) {
 			return password === repeatedPassword;
 		}
 
-		function registerEventHandler() {
-			var username = $('#usernameInput').val(),
-				email = $('#emailInput').val(),
-				password = $('#passwordInput').val(),
-				repeatedPassword = $('#repeatPasswordInput').val(),
-				firstName = $('#firstNameInput').val(),
-				lastName = $('#lastNameInput').val(),
-				age = $('#ageInput').val() | 0,
-				city = $('#cityInput').val();
+		function registrationHandler() {
+			var username = $('#input--username').val(),
+				email = $('#input--email').val(),
+				password = $('#input--password').val(),
+				repeatedPassword = $('#input--password-repeated').val(),
+				firstName = $('#input--first-name').val(),
+				lastName = $('#input--last-name').val(),
+				age = $('#input--age').val() | 0,
+				city = $('#input--city').val();
 
 			if (!areMatchingPasswords(password, repeatedPassword)) {
-				user.displayInvalidPasswordMessege($('#passwordInput'));
-				user.displayInvalidPasswordMessege($('#repeatPasswordInput'));
+				DOMManipulationController.displayInvalidPasswordMessege($('#input--password'));
+				DOMManipulationController.displayInvalidPasswordMessege($('#input--password-repeated'));
 			}
 			
 			var newUser = Object.create(user).init(username, email, password, firstName, lastName, age, city);
@@ -83,15 +84,19 @@ var authenticationController = (function ($) {
 				);
 		}
 
-		var $registrationSubmitButton = $('.register_input-submit');
-
-		$registrationSubmitButton.click(registerEventHandler);
-		$('#redirect_btn').click(function () {
-			DOMEventHandlerController.buttonClickEventHandler('../views/logInView.html', [authenticationController.logIn]);
+		$('.form__field__input--type-submit').click(function(){
+			registrationHandler();
+		});
+		$('.btn__redirect').click(function () {
+			DOMEventHandlerController.redirectButtonClick('../views/logInView.html', [logIn]);
 		});
 	}
 
-	return authenticationController;
+	return {
+		logIn: logIn,
+		logOut: logOut,
+		register: register
+	};
 } (jQuery));
 
 export { authenticationController }
