@@ -17,7 +17,7 @@ var currentUserController = (function ($) {
 				}
 			});
 	}
-	
+
 	currentUserController.displayUserProfile = function() {
 		globals.everlive.Users.currentUser()
 			.then(function(user) {
@@ -26,7 +26,7 @@ var currentUserController = (function ($) {
 			.then(function(currentUser) {
 				var profileTemplateHTML = $('#profile-template').html(),
 					profileTemplate = Handlebars.compile(profileTemplateHTML);
-				
+
 				globals.everlive.Files.getById(currentUser.Image)
 					.then(function(data){
 						return data.result;
@@ -46,7 +46,7 @@ var currentUserController = (function ($) {
 					});
 			})
 	}
-	
+
 	currentUserController.uploadProfileImage = function(imageId) {
 		globals.everlive.Users.currentUser()
 			.then(function(data){

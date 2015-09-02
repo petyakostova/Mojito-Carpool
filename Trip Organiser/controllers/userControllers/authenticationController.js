@@ -31,7 +31,7 @@ var authenticationController = (function ($) {
 		$('#redirect_btn').click(function () {
 			DOMEventHandlerController.buttonClickEventHandler('../views/registerView.html', [authenticationController.register]);
 		});
-	}
+	};
 
 	authenticationController.logOut = function () {
 		globals.everlive.authentication.logout(
@@ -39,10 +39,10 @@ var authenticationController = (function ($) {
 				currentUserController.displayCurrentUserInApplication();
 			},
 			function () {
-				
+
 			}
 			);
-	}
+	};
 
 
 
@@ -65,7 +65,7 @@ var authenticationController = (function ($) {
 				user.displayInvalidPasswordMessege($('#passwordInput'));
 				user.displayInvalidPasswordMessege($('#repeatPasswordInput'));
 			}
-			
+
 			var newUser = Object.create(user).init(username, email, password, firstName, lastName, age, city);
 
 			globals.everlive.Users.register(
@@ -89,7 +89,7 @@ var authenticationController = (function ($) {
 		$('#redirect_btn').click(function () {
 			DOMEventHandlerController.buttonClickEventHandler('../views/logInView.html', [authenticationController.logIn]);
 		});
-	}
+	};
 
 	return authenticationController;
 } (jQuery));

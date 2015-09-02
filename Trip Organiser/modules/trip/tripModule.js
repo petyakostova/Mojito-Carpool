@@ -9,7 +9,7 @@ var trip = (function(){
 				this.date = date;
 				this.wantPayment = wantPayment || false;
 				this.typeOfPayment = typeOfPayemnt || 'None';
-				
+
 				return this;
 			}
 	}
@@ -60,7 +60,7 @@ var trip = (function(){
 			},
 			set: function(value) {
 				this._wantPayment = value;
-			} 
+			}
 		},
 		typeOfPayment: {
 			get: function() {
@@ -71,7 +71,7 @@ var trip = (function(){
 			}
 		}
 	});
-	
+
 	return trip;
 }());
 
