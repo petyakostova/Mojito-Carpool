@@ -1,5 +1,7 @@
 import 'jquery';
 
+import { DOMManipulationController } from '../../controllers/DOMController/DOMManipulationController';
+
 var user = (function($){
 	
 	function isValidUsername(value) {
@@ -33,17 +35,6 @@ var user = (function($){
 			this.city = city;
 			
 			return this;
-		},
-		displayInvalidDataMessage: function($inputField, invalidDataMessage) {
-			var $invalidDataAlert = $.parseHTML('<div class="alert alert-danger alert-dismissible" role="alert">' +
-													'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
-													'<strong>Warning!</strong> ' + invalidDataMessage + 
-												'</div>');
-				
-			$inputField.after($invalidDataAlert);
-			setTimeout(function() {
-				$('.alert').fadeOut(300);
-			}, 10000);
 		}
 	}
 	
@@ -58,7 +49,7 @@ var user = (function($){
 				if(isValidUsername(value)) {
 					this._username = value;
 				} else {
-					this.displayInvalidDataMessage($('#usernameInput'), invalidUsernameMessage);
+					DOMManipulationController.displayInvalidDataMessage($('#input--username'), invalidUsernameMessage);
 				}
 			}
 		},
@@ -72,7 +63,7 @@ var user = (function($){
 				if(isValidEmail(value)) {
 					this._email = value;
 				} else {
-					this.displayInvalidDataMessage($('#emailInput'), invalidEmailMessage);
+					DOMManipulationController.displayInvalidDataMessage($('#input--email'), invalidEmailMessage);
 				}
 			}
 		},
@@ -86,8 +77,8 @@ var user = (function($){
 				if(isValidPassword(value)) {
 					this._password = value;
 				} else {
-					this.displayInvalidDataMessage($('#passwordInput'), invalidPasswordMessage);
-					this.displayInvalidDataMessage($('#repeatPasswordInput'), invalidPasswordMessage);
+					DOMManipulationController.displayInvalidDataMessage($('#input--password'), invalidPasswordMessage);
+					DOMManipulationController.displayInvalidDataMessage($('#input--password-repeated'), invalidPasswordMessage);
 				}
 			}
 		},
@@ -101,7 +92,7 @@ var user = (function($){
 				if(isValidName(value)) {
 					this._firstName = value;
 				} else {
-					this.displayInvalidDataMessage($('#firstNameInput'), invalidFirstNameMessage);
+					DOMManipulationController.displayInvalidDataMessage($('#input--first-name'), invalidFirstNameMessage);
 				}
 			}
 		},
@@ -115,7 +106,7 @@ var user = (function($){
 				if(isValidName(value)) {
 					this._lastName = value;
 				} else {
-					this.displayInvalidDataMessage($('#lastNameInput'), invalidLastNameMessage);
+					DOMManipulationController.displayInvalidDataMessage($('#input--last-name'), invalidLastNameMessage);
 				}
 			}
 		},
@@ -129,7 +120,7 @@ var user = (function($){
 				if(isValidAge(value)) {
 					this._age = value;
 				} else {
-					this.displayInvalidDataMessage($('#ageInput'), invalidAgeMessage);
+					DOMManipulationController.displayInvalidDataMessage($('#input--age'), invalidAgeMessage);
 				}
 			}
 		},
@@ -143,7 +134,7 @@ var user = (function($){
 				if(isValidName(value)){
 					this._city = value;
 				} else {
-					this.displayInvalidDataMessage($('#cityInput'), invalidCityMessage);
+					DOMManipulationController.displayInvalidDataMessage($('#input--city'), invalidCityMessage);
 				}
 			}
 		}

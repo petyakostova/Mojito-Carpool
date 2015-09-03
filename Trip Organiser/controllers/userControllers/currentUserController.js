@@ -5,8 +5,7 @@ import { DOMManipulationController } from './../DOMController/DOMManipulationCon
 import { DOMEventHandlerController } from './../DOMController/DOMEventHandlerController.js'
 
 var currentUserController = (function ($) {
-
-	function displayCurrentUserInApplication () {
+	function displayCurrentUserInApplication() {
 		globals.everlive.Users.currentUser()
 			.then(function (currentUser) {
 				if (currentUser.result) {
@@ -19,7 +18,7 @@ var currentUserController = (function ($) {
 	}
 
 	return {
-		displayCurrentUserInApplication: displayCurrentUserInApplication	
+		displayCurrentUserInApplication: displayCurrentUserInApplication
 	};
 } (jQuery));
 

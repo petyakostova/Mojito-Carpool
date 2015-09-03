@@ -12,17 +12,8 @@
 		padding: 15px
 		display: none
 		opacity: 0
-		+basic-ease-in-out-animation()	
-		
-		&__btn__close
-			position: absolute
-			font-size: 2.5em
-			top: 20px
-			right: 20px
-			+basic-ease-in-out-animation()
-			&:hover
-				cursor: pointer
-				transform: rotate(180deg)
+		+basic-ease-in-out-animation()
+			
 			
 		&__link
 			color: white
@@ -39,5 +30,13 @@
 		
 	&--state-error
 		background-color: #e74c3c
+	
+	
+	&--type-invalid-data
+		position: relative
+		width: 400px
+		height: 50px
+		background-color: #e74c3c
+		color: $foreground-color
 		
 		

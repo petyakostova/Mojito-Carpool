@@ -39,11 +39,32 @@ body {
   .btn__scroll:focus {
     color: #ecf0f1; }
 .btn__redirect {
+  transition: all 0.2s ease-in-out;
   display: inline-block;
   padding: 2.5px;
-  color: #2c3e50;
-  transition: all 0.2s ease-in-out; }
+  color: #2c3e50; }
   .btn__redirect:hover {
+    cursor: pointer;
+    background-color: #2c3e50;
+    color: #ecf0f1; }
+.btn__close {
+  position: absolute;
+  font-size: 2.5em;
+  top: 20px;
+  right: 20px;
+  transition: all 0.2s ease-in-out; }
+  .btn__close:hover {
+    cursor: pointer;
+    transform: rotate(180deg); }
+
+#btn__redirect__create-trip,
+#btn__redirect-profile {
+  transition: all 0.2s ease-in-out;
+  display: inline-block;
+  padding: 2.5px;
+  color: #2c3e50; }
+  #btn__redirect__create-trip:hover,
+  #btn__redirect-profile:hover {
     cursor: pointer;
     background-color: #2c3e50;
     color: #ecf0f1; }
@@ -158,15 +179,6 @@ body {
   display: none;
   opacity: 0;
   transition: all 0.2s ease-in-out; }
-  .messagebox--state-success__btn__close, .messagebox--state-error__btn__close {
-    position: absolute;
-    font-size: 2.5em;
-    top: 20px;
-    right: 20px;
-    transition: all 0.2s ease-in-out; }
-    .messagebox--state-success__btn__close:hover, .messagebox--state-error__btn__close:hover {
-      cursor: pointer;
-      transform: rotate(180deg); }
   .messagebox--state-success__link, .messagebox--state-error__link {
     color: white; }
     .messagebox--state-success__link:hover, .messagebox--state-error__link:hover {
@@ -178,6 +190,12 @@ body {
   background-color: #2ecc71; }
 .messagebox--state-error {
   background-color: #e74c3c; }
+.messagebox--type-invalid-data {
+  position: relative;
+  width: 400px;
+  height: 50px;
+  background-color: #e74c3c;
+  color: #2c3e50; }
 
 .profile__greeting {
   padding-left: 10px; }

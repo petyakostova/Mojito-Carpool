@@ -16,14 +16,34 @@
 		&:focus
 			color: $background-color
 			
-	&__redirect
+	&__redirect,
+		+basic-ease-in-out-animation()
 		display: inline-block
 		padding: 2.5px
 		color: $foreground-color
-		transition: all 0.2s ease-in-out
 		
 		&:hover
 			cursor: pointer
 			background-color: $foreground-color
 			color: $background-color
-		
+	&__close
+		position: absolute
+		font-size: 2.5em
+		top: 20px
+		right: 20px
+		+basic-ease-in-out-animation()
+		&:hover
+			cursor: pointer
+			transform: rotate(180deg)
+			
+#btn__redirect__create-trip,
+#btn__redirect-profile
+	+basic-ease-in-out-animation()
+	display: inline-block
+	padding: 2.5px
+	color: $foreground-color
+	
+	&:hover
+		cursor: pointer
+		background-color: $foreground-color
+		color: $background-color

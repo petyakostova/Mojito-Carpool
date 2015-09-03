@@ -21,7 +21,8 @@ var authenticationController = (function ($) {
 					DOMManipulationController.displayStatusMessage('success');
 					setTimeout(function(){
 						DOMEventHandlerController.loadPartialView('../../views/findTripsView.html', [
-							currentUserController.displayCurrentUserInApplication
+							currentUserController.displayCurrentUserInApplication,
+							DOMManipulationController.displayTrips
 						]);
 					}, 1500);
 				},

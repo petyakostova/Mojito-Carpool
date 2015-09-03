@@ -12,18 +12,11 @@ var tripController = (function($){
 	var tripController = {};
 
 	tripController.findTrips = function() {
-		function displayTrips() {
-
-		}
-
-		function searchTrips() {
-
-		}
-
-
-		$('.btn__redirect').click(function(){
+		$('#btn__redirect__create-trip').click(function(){
 			DOMEventHandlerController.loadPartialView('../views/createTripView.html', [tripController.createTrip]);
 		});
+
+		DOMManipulationController.displayTrips();
 
 	};
 

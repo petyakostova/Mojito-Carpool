@@ -3,7 +3,10 @@ import { globals } from 'globals.js'
 
 import { DOMEventHandlerController } from './DOMEventHandlerController'
 
-import { currentUserController } from './../userControllers/currentUserController' 
+import { currentUserController } from './../userControllers/currentUserController'
+
+import { dbController } from './../databaseController'
+ 
 var DOMManipulationController = (function($){
 	
 	function blurWrapper() {
@@ -37,10 +40,8 @@ var DOMManipulationController = (function($){
 												'opacity': 1});
 			disableSubmitButton($('.form__field__input--type-submit'));
 			blurWrapper();
-			$('.messagebox--state-success__btn__close').click(function(){
-				$('.messagebox--state-success').css({'opaicty': 0,
-													'display': 'none'});
-				unblurWrapper();
+			$('.btn__close').click(function(){
+				DOMEventHandlerController.messageboxCloseButtonClick($('.messagebox--state-success'));				unblurWrapper();
 			});
 			if(methodDelegates) {
 				globals.functions.executeMethodDelegates(methodDelegates);
@@ -50,14 +51,25 @@ var DOMManipulationController = (function($){
 			$('.messagebox--state-error').css({'display': 'block',
 												'opacity': 1});
 			blurWrapper();	
-			$('.messagebox--state-error__btn__close').click(function(){
-				$('.messagebox--state-error').css({'opaicty': 0,
-													'display': 'none'});
+			$('.btn__close').click(function(){
+				DOMEventHandlerController.messageboxCloseButtonClick($('.messagebox--state-error'));
 				unblurWrapper();
 			});
 			
 		}
-	}
+	};
+	
+	function displayInvalidDataMessage($inputField, invalidDataMessage) {
+		var $invalidDataAlert = $.parseHTML('<div class="messagebox--type--invalid-data">' +
+												'<span class="btn__close">&#10006;</span>' +
+												'<h3><strong>Warning!</strong> ' + invalidDataMessage + '</h3>' +  
+											'</div>');
+				
+			$inputField.after($invalidDataAlert);
+			setTimeout(function() {
+				$('.alert').fadeOut(300);
+			}, 10000);
+		}
 	
 	function compileHandlebarsTemplate(template) {
 		var templateHTML = template,
@@ -84,7 +96,7 @@ var DOMManipulationController = (function($){
 						DOMEventHandlerController.menuButtonClick('../../views/myProfileView.html', [displayCurrentUserProfile]);
 					});
 			});
-	}
+	};
 	
 	function displayCurrentUserProfile() {
 		globals.everlive.Users.currentUser()
@@ -118,7 +130,7 @@ var DOMManipulationController = (function($){
 		$('.menu__list__item[view="myProfile"]').remove();
 		displayLogInOrLogOutCTA('Log in');
 		$('.menu__list__item[view="register"]').css('display', 'block');
-	}
+	};
 	
 	 function displayLogInOrLogOutCTA(cta) {
 		if(cta === "Log in") {
@@ -128,6 +140,62 @@ var DOMManipulationController = (function($){
 			$('#menu__list__item__log-out').css('display', 'block');
 			$('#menu__list__item__log-in').css('display', 'none');
 		}
+	};
+	
+	function displayTrips() {
+		var tripData = globals.everlive.data('Trip'),
+			filter = new Everlive.Query(); 
+			filter.where().gte('Date', Date.now());
+			
+			tripData.get()
+				.then(function(data) {
+					return data.result;
+				})
+				.then(function(trips) {
+					var tripsCount = trips.length,
+						tripsCountTemplate = '<span id="trips-count"> Currently there are {{count}} active trips.</span>',
+						tripsCountTemplateAsDOMElement = compileHandlebarsTemplate(tripsCountTemplate);
+						
+						$('.find-trips_heading_subtitle').append(tripsCountTemplateAsDOMElement({count : tripsCount}));
+						
+					return trips;
+				})
+				.then(function(trips){
+					var tripPreviewTemplate = $('#trip-preview__template').html(),
+						tripPreviewTemplateAsDOMElement = compileHandlebarsTemplate(tripPreviewTemplate);
+						
+					$('.col-md-8').append(tripPreviewTemplateAsDOMElement({trips : trips}));
+					
+					$('.btn__redirect').each(function(i) {
+						$('.btn__redirect').eq(i).click(function() {
+							
+							function displayCurrentTrip() {
+								var currentTrip = trips[i],
+									tripTemplate = $('#trip__template').html();
+									globals.everlive.Users.getById(currentTrip.CreatedBy)
+										.then(function(user){
+										var tripTemplateAsDOMElement = compileHandlebarsTemplate(tripTemplate);
+										
+										$('.table').append(tripTemplateAsDOMElement({
+											Date: currentTrip.Date,
+											StartingPoint: currentTrip.StartingPoint,
+											EndingPoint: currentTrip.EndingPoint,
+											CreatedBy: user.result.DisplayName,
+											WantPayment: currentTrip.WantPayment,
+											TypeOfPayment: currentTrip.TypeOfPayment,
+											AdditionalInformation: currentTrip.AdditionalInformation
+										}));
+										
+										$('.btn__redirect').click(function() {
+											DOMEventHandlerController.loadPartialView('../../views/findTripsView.html', [displayTrips]);
+										})
+									});
+							}
+							
+							DOMEventHandlerController.loadPartialView('../../views/tripView.html', [displayCurrentTrip]);
+						});
+					});
+				});
 	}
 	
 	function animateScrollToContent() {
@@ -137,11 +205,13 @@ var DOMManipulationController = (function($){
 	return {
 		disableSubmitButton: disableSubmitButton,
 		displayStatusMessage: displayStatusMessage,
+		displayInvalidDataMessage: displayInvalidDataMessage,
 		compileHandlebarsTemplate: compileHandlebarsTemplate,
 		displayCurrentUserInMenu: displayCurrentUserInMenu,
 		displayCurrentUserProfile: displayCurrentUserProfile,
 		removeCurrentUserFromMenu: removeCurrentUserFromMenu,
 		displayLogInOrLogOutCTA: displayLogInOrLogOutCTA,
+		displayTrips: displayTrips,
 		animateScrollToContent: animateScrollToContent
 	};
 }(jQuery))

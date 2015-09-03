@@ -13,10 +13,25 @@ var dbController = (function(){
        }, function(error) {
          //error adding entry to database
      });
-   }
+   };
+   
+   function findIn(tableName, property, value, query) {
+    var filter = new Everlive.Query(),
+        data = globals.everlive.data(tableName);
+    
+    filter.where().query(property, value);
+    data.get(filter)
+        .then(function(data){
+            return data;
+        },
+        function(error){
+            alert(JSON.stringify(error));
+        });
+  }
 
   return {
-    addDataType: addDataType
+    addDataType: addDataType,
+    findIn: findIn
   };
 }());
 
