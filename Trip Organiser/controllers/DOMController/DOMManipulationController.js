@@ -1,20 +1,61 @@
-import 'jquery';
-import { globals } from 'globals.js';
+import 'jquery'
+import { globals } from 'globals.js'
 
-import { DOMEventHandlerController } from './DOMEventHandlerController';
+import { DOMEventHandlerController } from './DOMEventHandlerController'
 
 import { currentUserController } from './../userControllers/currentUserController' 
 var DOMManipulationController = (function($){
+	
+	function blurWrapper() {
+		$('.wrapper').css({
+                            'filter': 'blur(10px) drop-shadow(16px 16px 10px rgba(0,0,0,0.9))',
+                            '-webkit-filter': 'blur(10px) drop-shadow(16px 16px 10px rgba(0,0,0,0.9))',
+                            '-moz-filter': 'blur(10px)',
+                            '-o-filter': 'blur(10px)',
+                            '-ms-filter': 'blur(10px)'
+                        });
+	};
+	
+	function unblurWrapper() {
+		$('.wrapper').css({
+			'filter': 'none',
+			'-webkit-filter': 'none',
+			'-moz-filter': 'none',
+			'-o-filter': 'none',
+			'-ms-filter': 'none'
+		})
+	}
+	
+	function disableSubmitButton($button) {
+		$button.css('pointer-events', 'none');
+	}
+	
 	function displayStatusMessage(status, methodDelegates) {
 		if(status === 'success') {
-			$('.form__messagebox--state-error').css("display", "none");
-			$('.form__messagebox--state-success').css("opacity", 1);
+			$('.messagebox--state-error').css('display', 'none');
+			$('.messagebox--state-success').css({'display': 'block',
+												'opacity': 1});
+			disableSubmitButton($('.form__field__input--type-submit'));
+			blurWrapper();
+			$('.messagebox--state-success__btn__close').click(function(){
+				$('.messagebox--state-success').css({'opaicty': 0,
+													'display': 'none'});
+				unblurWrapper();
+			});
 			if(methodDelegates) {
 				globals.functions.executeMethodDelegates(methodDelegates);
 			}
 		} else if (status === 'error') {
-			$('.form__messagebox--state-success').css("display", "none");
-			$('.form__messagebox--state-error').css("opacity", 1);
+			$('.messagebox--state-success').css('display', 'none');
+			$('.messagebox--state-error').css({'display': 'block',
+												'opacity': 1});
+			blurWrapper();	
+			$('.messagebox--state-error__btn__close').click(function(){
+				$('.messagebox--state-error').css({'opaicty': 0,
+													'display': 'none'});
+				unblurWrapper();
+			});
+			
 		}
 	}
 	
@@ -94,6 +135,7 @@ var DOMManipulationController = (function($){
 	}
 	
 	return {
+		disableSubmitButton: disableSubmitButton,
 		displayStatusMessage: displayStatusMessage,
 		compileHandlebarsTemplate: compileHandlebarsTemplate,
 		displayCurrentUserInMenu: displayCurrentUserInMenu,

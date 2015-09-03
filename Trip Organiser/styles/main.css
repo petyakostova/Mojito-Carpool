@@ -120,9 +120,6 @@ body {
     width: 100%;
     height: 400px;
     margin: 20px 0; }
-.form__messagebox--state-success, .form__messagebox--state-error {
-  opacity: 0;
-  transition: opacity 0.5s ease-in; }
 
 .heading__title {
   margin: 5px 0;
@@ -148,6 +145,39 @@ body {
     .menu__list__item__link {
       text-align: center;
       color: #ecf0f1 !important; }
+
+.messagebox--state-success, .messagebox--state-error {
+  z-index: 4;
+  position: fixed;
+  top: 25%;
+  left: 25%;
+  width: 50%;
+  height: 37.5%;
+  color: white;
+  padding: 15px;
+  display: none;
+  opacity: 0;
+  transition: all 0.2s ease-in-out; }
+  .messagebox--state-success__btn__close, .messagebox--state-error__btn__close {
+    position: absolute;
+    font-size: 2.5em;
+    top: 20px;
+    right: 20px;
+    transition: all 0.2s ease-in-out; }
+    .messagebox--state-success__btn__close:hover, .messagebox--state-error__btn__close:hover {
+      cursor: pointer;
+      transform: rotate(180deg); }
+  .messagebox--state-success__link, .messagebox--state-error__link {
+    color: white; }
+    .messagebox--state-success__link:hover, .messagebox--state-error__link:hover {
+      text-decoration: underline; }
+  .messagebox--state-success__title, .messagebox--state-success__subtitle, .messagebox--state-error__title, .messagebox--state-error__subtitle {
+    margin: 0;
+    padding: 0; }
+.messagebox--state-success {
+  background-color: #2ecc71; }
+.messagebox--state-error {
+  background-color: #e74c3c; }
 
 .profile__greeting {
   padding-left: 10px; }

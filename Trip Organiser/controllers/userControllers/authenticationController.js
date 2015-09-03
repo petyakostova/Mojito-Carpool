@@ -18,13 +18,22 @@ var authenticationController = (function ($) {
 				username,
 				password,
 				function() {
-					currentUserController.displayCurrentUserInApplication();
-				});
+					DOMManipulationController.displayStatusMessage('success');
+					setTimeout(function(){
+						DOMEventHandlerController.loadPartialView('../../views/findTripsView.html', [
+							currentUserController.displayCurrentUserInApplication
+						]);
+					}, 1500);
+				},
+				function(){
+					DOMManipulationController.displayStatusMessage('error');
+				})
+				
+				return false;
 		}
-
-		$('.form__field__input--type-submit').click(function () {
+		
+		$('.form__field__input--type-submit').click(function (e) {
 			logInHandler();
-			DOMEventHandlerController.loadPartialView('../../views/homeView.html');
 		});
 
 		$('.btn__redirect').click(function () {
@@ -77,9 +86,12 @@ var authenticationController = (function ($) {
 					City: newUser.city,
 					Image: 'f7b5dc60-4fd4-11e5-9d9e-b3b5aaf017f7'
 				},
-				DOMManipulationController.displayRegisterMessage('success'),
-				DOMManipulationController.displayRegisterMessage('error')
-				);
+				function() {
+					DOMManipulationController.displayStatusMessage('success')
+				},
+				function() {
+					DOMManipulationController.displayStatusMessage('error')
+				});
 		}
 
 		$('.form__field__input--type-submit').click(function(){

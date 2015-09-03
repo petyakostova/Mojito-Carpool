@@ -52,6 +52,11 @@ var DOMEventHandlerController = (function ($) {
 		$('.form__upload__input--type-file').change(function () {
 			imageController.readImage(this);
 		});
+	};
+	
+	function messageboxCloseButtonClick($messagebox) {
+		$messagebox.css({'opacity': 0,
+						'display': 'none'});
 	}
 
 	function wantPaymentCheckboxChange() {
@@ -75,6 +80,7 @@ var DOMEventHandlerController = (function ($) {
 		redirectButtonClick: redirectButtonClick,
 		editImageButtonClick: editImageButtonClick,
 		uploadImageButtonClick: uploadImageButtonClick,
+		messageboxCloseButtonClick: messageboxCloseButtonClick,
 		wantPaymentCheckboxChange: wantPaymentCheckboxChange
 	};
 } (jQuery));

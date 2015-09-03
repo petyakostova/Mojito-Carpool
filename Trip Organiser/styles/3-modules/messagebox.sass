@@ -1,0 +1,43 @@
+.messagebox
+	
+	&--state-success,
+	&--state-error
+		z-index: 4
+		position: fixed
+		top: 25%
+		left: 25%
+		width: 50%
+		height: 37.5%	
+		color: white
+		padding: 15px
+		display: none
+		opacity: 0
+		+basic-ease-in-out-animation()	
+		
+		&__btn__close
+			position: absolute
+			font-size: 2.5em
+			top: 20px
+			right: 20px
+			+basic-ease-in-out-animation()
+			&:hover
+				cursor: pointer
+				transform: rotate(180deg)
+			
+		&__link
+			color: white
+			&:hover
+				text-decoration: underline
+		
+		&__title,
+		&__subtitle
+			margin: 0
+			padding: 0
+				
+	&--state-success
+		background-color: #2ecc71
+		
+	&--state-error
+		background-color: #e74c3c
+		
+		

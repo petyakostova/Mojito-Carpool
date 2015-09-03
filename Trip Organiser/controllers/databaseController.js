@@ -3,7 +3,7 @@ import { globals } from 'globals.js';
 
 var dbController = (function(){
 
-  function addTo(tableName, entry) {
+  function addDataType(tableName, entry) {
      var table = globals.everlive.data(tableName);
      console.log(entry);
  
@@ -16,7 +16,7 @@ var dbController = (function(){
    }
 
   return {
-    addTo: addTo
+    addDataType: addDataType
   };
 }());
 

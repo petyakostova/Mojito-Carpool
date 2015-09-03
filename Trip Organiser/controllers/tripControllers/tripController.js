@@ -28,6 +28,8 @@ var tripController = (function($){
 	};
 
 	tripController.createTrip = function() {
+		DOMEventHandlerController.wantPaymentCheckboxChange();
+		
 		$('.form__field__input--type-submit').click(function(e) {
 			var startingPoint = $('#input--starting-point').val(),
 				startingPointGeoLocationLng = +($('#input--starting-point-coords').val().split(',').pop()),
@@ -47,7 +49,7 @@ var tripController = (function($){
 								date, wantPayment, typeOfPayment, numberOfSeats, additionalInformation);
 			e.preventDefault();
 			console.log(newTrip);
-			dbController.addTo('Trip', 
+			dbController.addDataType('Trip', 
 				{
 					StartingPoint: newTrip.startingPoint,
 					StartingPointLocation: startingPointGeoLocation,
@@ -62,8 +64,6 @@ var tripController = (function($){
 					console.log(JSON.stringify(data));
 				});
 		});
-
-		DOMEventHandlerController.wantPaymentCheckboxChange();
 	};
 
 

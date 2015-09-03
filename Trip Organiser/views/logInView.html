@@ -1,3 +1,13 @@
+<div class="messagebox--state-success" data-info="log-in">
+	<span class="messagebox--state-success__btn__close">&#10006;</span>
+	<h1 class="messagebox--state-success__title"><strong>Success</strong></h1>
+	<h2 class="messagebox--state-success__subtitle">You have logged in successfully. Redirecting you to home page now...</h2>
+</div>
+<div class="messagebox--state-error" data-info="log-in">
+	<span class="messagebox--state-error__btn__close">&#10006;</span>
+	<h1 class="messagebox--state-error__title"><strong>Error</strong></h1>
+	<h2 class="messagebox--state-error__subtitle">No such user exists<br/>If you have forgotten your password, please click <a href="#" class="messagebox--state-error__link">here </a> and an email with further instructions will be sent to you.</h2>
+</div>
 <div class="wrapper">
 	<div class="row">
 		<div class="col-xs-6">
@@ -16,20 +26,6 @@
 						<input class="form__field__input--type-text form-control" id="input--password" type="password" name="password">
 					</div>
 					<input class="form__field__input--type-submit" type="button" value="Log in">
-				</div>
-				<div class="form__messagebox--state-success" data-info="log-in">
-					<div class="alert alert-success alert-dismissible" role="alert">
-						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						Log in successfull!
-					</div>
-				</div>
-				<div class="form__messagebox--state-error" data-info="log-in">
-					<div class="alert alert-danger alert-dismissible" role="alert">
-						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						No such user exists. Please retry.
-						<br/> If you have forgotten your password, click <a href="#">here</a> and an email with further instructions will be send
-						to you.
-					</div>
 				</div>
 			</form>
 		</div>
