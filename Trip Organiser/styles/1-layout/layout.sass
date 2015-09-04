@@ -6,6 +6,28 @@ body
 		size: 1.2em
 	background-color: $background-color
 	
+	.loader
+		z-index: 999
+		position: absolute
+		width: 100%
+		height: 100%
+		background-color: white
+		
+		div
+			position: absolute
+			top: 50%
+			left: 50%
+			transform: translate(-50%, -50%)
+			
+			h1
+				text-align: center
+			
+			img
+				display: block
+				transform: scale(1.2)
+				width: 25%
+				height: 25%
+				margin: 20px auto
 	.wrapper
 		margin: 100px 0
 		

@@ -15,7 +15,7 @@ var currentUserController = (function ($) {
 					DOMManipulationController.removeCurrentUserFromMenu();
 				}
 			});
-	}
+	};
 
 	return {
 		displayCurrentUserInApplication: displayCurrentUserInApplication

@@ -36,8 +36,25 @@
 			cursor: pointer
 			transform: rotate(180deg)
 			
+	&__cta
+		+basic-ease-in-out-animation()
+		background-color: #2ecc71
+		color: $background-color
+		border: 1px solid #2ecc71
+		padding: 5px
+		text-align: center
+		font-size: 2em
+		width: 200px
+		height: 40px
+		
+		&:hover
+			cursor: pointer
+			color: #2ecc71
+			background-color: $background-color
+			
 #btn__redirect__create-trip,
-#btn__redirect-profile
+#btn__redirect-profile,
+#btn__redirect-back
 	+basic-ease-in-out-animation()
 	display: inline-block
 	padding: 2.5px

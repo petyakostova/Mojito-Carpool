@@ -48,7 +48,7 @@ var authenticationController = (function ($) {
 				currentUserController.displayCurrentUserInApplication();
 			},
 			function () {
-
+				
 			}
 		);
 	};
@@ -97,6 +97,7 @@ var authenticationController = (function ($) {
 
 		$('.form__field__input--type-submit').click(function(){
 			registrationHandler();
+			DOMEventHandlerController.redirectButtonClick('../views/logInView.html', [logIn]);
 		});
 		$('.btn__redirect').click(function () {
 			DOMEventHandlerController.redirectButtonClick('../views/logInView.html', [logIn]);

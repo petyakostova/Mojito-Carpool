@@ -5,6 +5,8 @@ import { DOMEventHandlerController } from './DOMEventHandlerController'
 
 import { currentUserController } from './../userControllers/currentUserController'
 
+import { tripController } from './../tripControllers/tripController'
+
 import { dbController } from './../databaseController'
  
 var DOMManipulationController = (function($){
@@ -41,7 +43,8 @@ var DOMManipulationController = (function($){
 			disableSubmitButton($('.form__field__input--type-submit'));
 			blurWrapper();
 			$('.btn__close').click(function(){
-				DOMEventHandlerController.messageboxCloseButtonClick($('.messagebox--state-success'));				unblurWrapper();
+				DOMEventHandlerController.messageboxCloseButtonClick($('.messagebox--state-success'));	
+				unblurWrapper();
 			});
 			if(methodDelegates) {
 				globals.functions.executeMethodDelegates(methodDelegates);
@@ -60,15 +63,13 @@ var DOMManipulationController = (function($){
 	};
 	
 	function displayInvalidDataMessage($inputField, invalidDataMessage) {
-		var $invalidDataAlert = $.parseHTML('<div class="messagebox--type--invalid-data">' +
-												'<span class="btn__close">&#10006;</span>' +
-												'<h3><strong>Warning!</strong> ' + invalidDataMessage + '</h3>' +  
+		var $invalidDataAlert = $.parseHTML('<div class="invalid-data">' +
+												'<h4><strong>Warning!</strong> ' + invalidDataMessage + '</h4>' +  
 											'</div>');
-				
 			$inputField.after($invalidDataAlert);
 			setTimeout(function() {
-				$('.alert').fadeOut(300);
-			}, 10000);
+				$('.invalid-data').fadeOut(300);
+			}, 4000);
 		}
 	
 	function compileHandlebarsTemplate(template) {
@@ -81,26 +82,29 @@ var DOMManipulationController = (function($){
 	function displayCurrentUserInMenu() {
 		globals.everlive.Users.currentUser()
 			.then(function (user) {
+				globals.functions.displayLoader();
 				return user.result.DisplayName;
 			})
 			.then(function (name) {
-					var template = '<li class="menu__list__item" view="myProfile"><a href="#" class="menu__list__item__link">{{name}}</a></li>',
-						templateAsDOMElement = compileHandlebarsTemplate(template)	
-						
-					$('.navbar-right').append(templateAsDOMElement({ name: name}));
-					displayLogInOrLogOutCTA('Log out');
-					$('.menu__list__item[view="register"]').css('display', 'none');
+				var template = '<li class="menu__list__item" view="myProfile"><a href="#" class="menu__list__item__link">{{name}}</a></li>',
+					templateAsDOMElement = compileHandlebarsTemplate(template)	
 					
-					$('.menu__list__item[view="myProfile"]').click(function(e) {
-						e.preventDefault();
-						DOMEventHandlerController.menuButtonClick('../../views/myProfileView.html', [displayCurrentUserProfile]);
-					});
+				$('.navbar-right').append(templateAsDOMElement({ name: name}));
+				displayLogInOrLogOutCTA('Log out');
+				$('.menu__list__item[view="register"]').css('display', 'none');
+				
+				$('.menu__list__item[view="myProfile"]').click(function(e) {
+					e.preventDefault();
+					DOMEventHandlerController.menuButtonClick('../../views/myProfileView.html', [displayCurrentUserProfile]);
+				});
+				globals.functions.hideLoader();			
 			});
 	};
 	
 	function displayCurrentUserProfile() {
 		globals.everlive.Users.currentUser()
 			.then(function(user) {
+				globals.functions.displayLoader();
 				return user.result
 			})
 			.then(function(currentUser) {
@@ -120,9 +124,11 @@ var DOMManipulationController = (function($){
 						}));
 					})
 					.then(function(){
+						displayCurrentUserTrips();
 						DOMEventHandlerController.editImageButtonClick();
 						DOMEventHandlerController.uploadImageButtonClick();
 					});
+				globals.functions.hideLoader();
 			});
 	};
 	
@@ -143,9 +149,7 @@ var DOMManipulationController = (function($){
 	};
 	
 	function displayTrips() {
-		var tripData = globals.everlive.data('Trip'),
-			filter = new Everlive.Query(); 
-			filter.where().gte('Date', Date.now());
+		var tripData = globals.everlive.data('Trip');
 			
 			tripData.get()
 				.then(function(data) {
@@ -181,21 +185,179 @@ var DOMManipulationController = (function($){
 											StartingPoint: currentTrip.StartingPoint,
 											EndingPoint: currentTrip.EndingPoint,
 											CreatedBy: user.result.DisplayName,
+											FreeSeats: currentTrip.FreeSeats,
 											WantPayment: currentTrip.WantPayment,
+											Participiants: currentTrip.Participiants,
 											TypeOfPayment: currentTrip.TypeOfPayment,
 											AdditionalInformation: currentTrip.AdditionalInformation
 										}));
 										
-										$('.btn__redirect').click(function() {
-											DOMEventHandlerController.loadPartialView('../../views/findTripsView.html', [displayTrips]);
-										})
+										$('#btn__redirect-back').click(function() {
+											DOMEventHandlerController.loadPartialView('../../views/findTripsView.html', [tripController.findTrips]);
+										});
+										
+										$('#btn__redirect-profile').cick(function(){
+											function displayUserProfile() {
+												var profileTemplateHTML = $('#profile-template').html(),
+													profileTemplate = compileHandlebarsTemplate(profileTemplateHTML);
+													
+												globals.everlive.Files.getById(user.result.Image)
+													.then(function(data){
+														return data.result;
+													})
+													.then(function(image){
+														$('.profile').append(profileTemplate({
+															name: user.result.DisplayName,
+															email: user.result.Email,
+															age: user.result.Age,
+															city: user.result.City,
+															image: image.Uri
+														}));
+													});
+											};
+											DOMEventHandlerController.loadPartialView('../../views/myProfileView.html', displayUserProfile)
+										});
+									});
+									$('.btn__cta').click(function() {
+										console.log(trips[i]);
+										globals.everlive.Users.currentUser()
+											.then(function(data){
+												console.log(data.result);	
+											});
+										
+										tripData.updateSingle({ Id: trips[i].Id,
+																FreeSeats: trips[i].FreeSeats -= 1,
+																//Participiants: trips[i].Participiants.push(globals.everlive.Users.currentUser()) 
+															})
+															.then(function(){
+																DOMEventHandlerController.loadPartialView('../../views/findTripsView.html', [tripController.findTrips]);
+															});
+										
+										if(trips[i].FreeSeats === 0) {
+											$(this).css('display', 'none');
+										}
 									});
 							}
-							
 							DOMEventHandlerController.loadPartialView('../../views/tripView.html', [displayCurrentTrip]);
 						});
 					});
 				});
+	};
+	
+	function displayLatestTrips() {
+		var filter = new Everlive.Query();
+		
+		filter.orderDesc('CreatedAt').take(3);
+		
+		var tripData = globals.everlive.data('Trip');
+			
+		tripData.get(filter)
+			.then(function(data){
+				return data.result;
+			})
+			.then(function(latestTrips){
+				var tripTemplate = $('#trip-preview__template').html();
+				console.log(tripTemplate);
+				var	tripTemplateAsDOMElement = compileHandlebarsTemplate(tripTemplate);
+					
+				$('.aside').append(tripTemplateAsDOMElement({trips: latestTrips}));
+			})
+			.then(function(latestTrips){
+				$('.btn__redirect').each(function(i){
+					$('.btn__redirect')[i].click(function(){
+						function displayCurrentTrip() {
+								var currentTrip = trips[i],
+									tripTemplate = $('#trip__template').html();
+									globals.everlive.Users.getById(currentTrip.CreatedBy)
+										.then(function(user){
+										var tripTemplateAsDOMElement = compileHandlebarsTemplate(tripTemplate);
+										
+										$('.table').append(tripTemplateAsDOMElement({
+											Date: currentTrip.Date,
+											StartingPoint: currentTrip.StartingPoint,
+											EndingPoint: currentTrip.EndingPoint,
+											CreatedBy: user.result.DisplayName,
+											FreeSeats: currentTrip.FreeSeats,
+											WantPayment: currentTrip.WantPayment,
+											Participiants: currentTrip.Participiants,
+											TypeOfPayment: currentTrip.TypeOfPayment,
+											AdditionalInformation: currentTrip.AdditionalInformation
+										}));
+										
+										$('#btn__redirect-back').click(function() {
+											DOMEventHandlerController.loadPartialView('../../views/findTripsView.html', [tripController.findTrips]);
+										});
+										
+										$('#btn__redirect-profile').cick(function(){
+											function displayUserProfile() {
+												var profileTemplateHTML = $('#profile-template').html(),
+													profileTemplate = compileHandlebarsTemplate(profileTemplateHTML);
+													
+												globals.everlive.Files.getById(user.result.Image)
+													.then(function(data){
+														return data.result;
+													})
+													.then(function(image){
+														$('.profile').append(profileTemplate({
+															name: user.result.DisplayName,
+															email: user.result.Email,
+															age: user.result.Age,
+															city: user.result.City,
+															image: image.Uri
+														}));
+													});
+											};
+											DOMEventHandlerController.loadPartialView('../../views/myProfileView.html', displayUserProfile)
+										});
+									});
+									$('.btn__cta').click(function() {
+										console.log(latestTrips[i]);
+										globals.everlive.Users.currentUser()
+											.then(function(data){
+												console.log(data.result);	
+											});
+										
+										tripData.updateSingle({ Id: latestTrips[i].Id,
+																FreeSeats: latestTrips[i].FreeSeats -= 1,
+																//Participiants: trips[i].Participiants.push(globals.everlive.Users.currentUser()) 
+															})
+															.then(function(){
+																DOMEventHandlerController.loadPartialView('../../views/findTripsView.html', [tripController.findTrips]);
+															});
+										
+										if(latestTrips[i].FreeSeats === 0) {
+											$(this).css('display', 'none');
+										}
+									});
+							}
+							DOMEventHandlerController.loadPartialView('../../views/tripView.html', [displayCurrentTrip]);
+						});
+				});
+			});
+	}
+	
+	function displayCurrentUserTrips() {
+		globals.everlive.Users.currentUser()
+			.then(function(data){
+				return data.result;
+			})
+			.then(function(currentUser){
+				var tripData = globals.everlive.data('Trip'),
+					filter = new Everlive.Query();
+				
+				filter.where().eq('CreatedBy', currentUser.Id);
+				
+				tripData.get(filter)
+					.then(function(data){
+						return data.result;
+					})
+					.then(function(trips){
+						var tripPreviewTemplateHTML = $('#trip-preview__template').html();
+						var tripPreviewTemplateAsDOMElement = compileHandlebarsTemplate(tripPreviewTemplateHTML);
+						
+						$('.col-lg-8').append(tripPreviewTemplateAsDOMElement({trips : trips}));
+					});
+			});
 	}
 	
 	function animateScrollToContent() {
@@ -208,10 +370,12 @@ var DOMManipulationController = (function($){
 		displayInvalidDataMessage: displayInvalidDataMessage,
 		compileHandlebarsTemplate: compileHandlebarsTemplate,
 		displayCurrentUserInMenu: displayCurrentUserInMenu,
+		displayCurrentUserTrips: displayCurrentUserTrips,
 		displayCurrentUserProfile: displayCurrentUserProfile,
 		removeCurrentUserFromMenu: removeCurrentUserFromMenu,
 		displayLogInOrLogOutCTA: displayLogInOrLogOutCTA,
 		displayTrips: displayTrips,
+		displayLatestTrips: displayLatestTrips,
 		animateScrollToContent: animateScrollToContent
 	};
 }(jQuery))

@@ -10,6 +10,7 @@ var trip = (function(){
 				this.wantPayment = wantPayment || false;
 				this.typeOfPayment = typeOfPayemnt || 'None';
 				this.numberOfSeats = numberOfSeats;
+				this.participiants = [];
 				this.additionalInfromation = additionalInformation;
 				
 				return this;

@@ -15,6 +15,12 @@ var globals = {
 			for(var d in delegates) {
 				delegates[d]();
 			}
+		},
+		displayLoader: function() {
+			$('.loader').show();
+		},
+		hideLoader: function() {
+			$('.loader').hide();
 		}
 	}
 }

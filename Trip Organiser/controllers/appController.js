@@ -1,7 +1,8 @@
 import 'jquery'
+import { globals } from "./../assets/globals.js"
 import { menuController } from "./menuController"
-import { currentUserController } from "./userControllers/currentUserController"
-import {mapController} from './mapController/mapController'
+import { DOMManipulationController } from "./DOMController/DOMManipulationController"
 
-currentUserController.displayCurrentUserInApplication();
+DOMManipulationController.displayCurrentUserInMenu();
+globals.functions.hideLoader();
 menuController();

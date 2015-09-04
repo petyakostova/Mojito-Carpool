@@ -1,15 +1,32 @@
 <div class="wrapper">
-	<aside class="information">
-		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus numquam nemo fuga magnam molestiae eveniet fugit officiis
-			sed explicabo corrupti, eaque soluta. Aperiam, nulla ut suscipit numquam in autem unde!</p>
-	</aside>
-	<aside class="latest">
-		<nav class="latest_menu">
-			<ul class="latest_menu_list">
-				<li class="latest_menu_list_item"><a href="" class="latest_menu_list_item_link">27.09.15 Sofia-Lovetch</a></li>
-				<li class="latest_menu_list_item"><a href="" class="latest_menu_list_item_link">01.09.15 Ruse-Burgas</a></li>
-				<li class="latest_menu_list_item"><a href="" class="latest_menu_list_item_link">05.01.16 London-Frankfurt am Main</a></li>
-			</ul>
-		</nav>
-	</aside>
+	<div class="row">
+		<div class="col-md-6">
+			<hgroup class="heading">
+				<h1>Welcome to Carpool</h1>
+				<h3>The trip organiser where you can find, create and particapate in trips with new people.</h3>
+			</hgroup>
+			<aside class="information">
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus numquam nemo fuga magnam molestiae eveniet fugit officiis
+					sed explicabo corrupti, eaque soluta. Aperiam, nulla ut suscipit numquam in autem unde!</p>
+			</aside>
+		</div>
+		<div class="col-md-6">
+			<aside class="aside">
+				<hgroup class="heading">
+					<h1>
+						Latest trips:
+					</h1>
+				</hgroup>
+				<script type="text/x-handlebars-template" id="trip-preview__template">
+					<nav class="aside__menu">
+						<ul class="aside__menu__list" style="list-style-type: none;">
+							{{#trips}}
+								<li class="aside__menu__list__item"><h2 class="btn__redirect">{{Date}} {{StartingPoint}} - {{EndingPoint}}</h2></li>
+							{{/trips}}
+						</ul>
+					</nav>
+				</script>
+			</aside>
+		</div>
+	</div>
 </div>

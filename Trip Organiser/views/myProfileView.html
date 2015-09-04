@@ -54,7 +54,28 @@
 						</div>
 					</div>
 				</div>
+				<script type="text/x-handlebars-template" id="notifications__template"></script>
+				<div class="notifications">
+					<h3 class="notifications__title">Your notifications</h3>
+					<div>{{Notifications}}</div>					
+				</div>
 			</form>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-8">
+			<hgroup class="heading">
+				<h2 class="heading__title">Trips created by you: </h2>
+			</hgroup>
+			<script type="text/x-handlebars-template" id="trip-preview__template">
+				{{#trips}}
+					<div class="trip">
+						<h1 class="trip__title">{{StartingPoint}} - {{EndingPoint}} on {{Date}}</h1>
+						<p class="trip__info">{{AdditionalInformation}}</p>
+					</div>
+				{{/trips}}
+			</script>
+			<div class="table"></div>
 		</div>
 	</div>
 </div>

@@ -12,16 +12,29 @@ var tripController = (function($){
 	var tripController = {};
 
 	tripController.findTrips = function() {
+		function searchTrips() {
+			$('#searchbox').keyup(function(){
+				$('.trip').each(function(i){
+					$('\'.trip\'):not(:contains('+ $(this).val() + ')').css('display', 'none');
+				});
+			})
+		}
+		
 		$('#btn__redirect__create-trip').click(function(){
 			DOMEventHandlerController.loadPartialView('../views/createTripView.html', [tripController.createTrip]);
 		});
 
 		DOMManipulationController.displayTrips();
-
+		searchTrips();
+		
 	};
 
 	tripController.createTrip = function() {
 		DOMEventHandlerController.wantPaymentCheckboxChange();
+		
+		$('#btn__redirect-back').click(function() {
+			DOMEventHandlerController.loadPartialView('../../views/findTripsView.html', [DOMManipulationController.displayTrips]);
+		}); 
 		
 		$('.form__field__input--type-submit').click(function(e) {
 			var startingPoint = $('#input--starting-point').val(),
@@ -41,7 +54,6 @@ var tripController = (function($){
 			var newTrip = Object.create(trip).init(startingPoint, startingPointGeoLocation, endingPoint, endingPointGeoLocation,
 								date, wantPayment, typeOfPayment, numberOfSeats, additionalInformation);
 			e.preventDefault();
-			console.log(newTrip);
 			dbController.addDataType('Trip', 
 				{
 					StartingPoint: newTrip.startingPoint,
@@ -56,6 +68,7 @@ var tripController = (function($){
 				}, function(data){
 					console.log(JSON.stringify(data));
 				});
+			DOMEventHandlerController.loadPartialView('../../view/findTripsView.html', tripController.findTrips);
 		});
 	};
 

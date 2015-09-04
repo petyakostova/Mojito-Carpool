@@ -1,6 +1,7 @@
 <div class="wrapper">
 	<div class="row">
 		<div class="col-lg-12">
+			<h3 id="btn__redirect-back">Back</h3>
 			<script type="text/x-handlebars-template" id="trip__template">
 				<h2 class="table__row"><strong class="table__data--text">Date: </strong>{{Date}}</h2>
 				<h2 class="table__row"><strong class="table__data--text">Starting point: </strong> {{StartingPoint}}</h2>
@@ -8,9 +9,13 @@
 				<h2 class="table__row"><strong class="table__data--text">Ending point: </strong> {{EndingPoint}}</h2>
 				<div class="table__row"><div class="table__data--map">{{EndingPointLocation}}</div></div>
 				<h2 class="table__row"><strong class="table__data--text">Created by: </strong><span id="btn__redirect-profile">{{CreatedBy}}</span></h2>
+				<h2 class="table__row"><strong class="table__data-text">Free seats: </strong>{{FreeSeats}}</h2>
 				{{#if WantPayment}}
 					<h2 class="table__row"><strong class="table__data--text">Type of payment: </strong>{{TypeOfPayment}}</h2>
 				{{/if}}
+				<div class="table__row">
+					<h2><strong class="table__data--type-text">Participiants: </strong>{{Participiants}}</h2>
+				</div>
 				<div class="table__row">
 					<h2><strong class="table__data--text">Additional information: </strong></h2>
 					<h3 class="table__info">
@@ -19,7 +24,7 @@
 				</div>					
 			</script>
 			<div class="table"></div>
-			<h3 class="btn__redirect">Back</h3>
+			<h3 class="btn__cta">Participate</h3>
 		</div>
 	</div>
 </div>
